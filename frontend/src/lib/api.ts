@@ -316,24 +316,36 @@ export async function fetchLiveGitHubProjects(): Promise<Project[]> {
 
 export async function fetchProjects(): Promise<Project[]> {
   try {
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 5000);
+
     const res = await fetch(`${API_BASE_URL}/api/v1/projects`, {
+      signal: controller.signal,
       next: { revalidate: 60 },
-    });
-    if (!res.ok) throw new Error('Failed to fetch from API');
+    }).finally(() => clearTimeout(timeoutId));
+
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
     const data = await res.json();
     return data.length > 0 ? data : await fetchLiveGitHubProjects();
   } catch (error) {
-    console.warn('Backend API offline or unreachable. Syncing live from GitHub API.', error);
+    if (process.env.NODE_ENV === 'development') {
+      console.warn('Backend API unreachable. Falling back to live GitHub API.', error);
+    }
     return await fetchLiveGitHubProjects();
   }
 }
 
 export async function fetchProjectBySlug(slug: string): Promise<Project | null> {
   try {
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 5000);
+
     const res = await fetch(`${API_BASE_URL}/api/v1/projects/${slug}`, {
+      signal: controller.signal,
       next: { revalidate: 60 },
-    });
-    if (!res.ok) throw new Error('Failed to fetch project');
+    }).finally(() => clearTimeout(timeoutId));
+
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
     return await res.json();
   } catch (error) {
     const live = await fetchLiveGitHubProjects();
