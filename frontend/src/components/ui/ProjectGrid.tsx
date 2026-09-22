@@ -207,17 +207,33 @@ export default function ProjectGrid({ projects }: ProjectGridProps) {
               ))}
             </div>
 
-            <div className="flex items-center space-x-2 text-xs font-mono">
-              {isHovered ? (
-                <span className="inline-flex items-center space-x-1.5 px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-300 transition-all">
-                  <span className="w-2 h-2 rounded-full bg-amber-400 animate-pulse" />
-                  <span>Auto-Play Paused on Hover</span>
-                </span>
-              ) : (
-                <span className="text-slate-400 transition-colors">
-                  Hover to pause • Click card to view project details
-                </span>
-              )}
+            <div className="flex items-center text-xs font-mono h-8 min-h-[32px]">
+              <AnimatePresence mode="wait" initial={false}>
+                {isHovered ? (
+                  <motion.span
+                    key="paused"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    transition={{ duration: 0.15 }}
+                    className="inline-flex items-center space-x-1.5 px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-300"
+                  >
+                    <span className="w-2 h-2 rounded-full bg-amber-400 animate-pulse" />
+                    <span>Auto-Play Paused on Hover</span>
+                  </motion.span>
+                ) : (
+                  <motion.span
+                    key="normal"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    transition={{ duration: 0.15 }}
+                    className="inline-flex items-center px-3 py-1 text-slate-400"
+                  >
+                    Hover to pause • Click card to view project details
+                  </motion.span>
+                )}
+              </AnimatePresence>
             </div>
           </div>
         </div>
