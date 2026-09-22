@@ -119,7 +119,7 @@ export default function ProjectGrid({ projects }: ProjectGridProps) {
             <div className="flex items-center space-x-3">
               <span className="text-xs font-mono text-slate-400 flex items-center gap-2">
                 <Sliders className="w-4 h-4 text-cyan-400" />
-                <span>CASE STUDY <strong className="text-white">{String(carouselIndex + 1).padStart(2, '0')}</strong> / {String(filteredProjects.length).padStart(2, '0')}</span>
+                <span>PROJECT <strong className="text-white">{String(carouselIndex + 1).padStart(2, '0')}</strong> / {String(filteredProjects.length).padStart(2, '0')}</span>
               </span>
 
               {isHovered && (
@@ -208,7 +208,7 @@ export default function ProjectGrid({ projects }: ProjectGridProps) {
             </div>
 
             <span className="text-xs font-mono text-slate-400">
-              Hover to pause • Click card to open case study
+              Hover to pause • Click card to view project details
             </span>
           </div>
         </div>

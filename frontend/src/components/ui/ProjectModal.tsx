@@ -149,7 +149,7 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
                 onClick={onClose}
                 className="px-5 py-2 rounded-xl text-xs font-mono text-slate-400 hover:text-white transition-colors"
               >
-                Close Case Study
+                Close Project
               </button>
             </div>
           </div>
