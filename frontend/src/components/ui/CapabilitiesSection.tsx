@@ -37,7 +37,7 @@ export default function CapabilitiesSection() {
   ];
 
   return (
-    <section id="capabilities" className="py-24 px-4 sm:px-6 lg:px-8 relative z-10">
+    <section id="capabilities" className="py-24 px-4 sm:px-6 lg:px-8 relative z-10 scroll-mt-28">
       <div className="max-w-7xl mx-auto space-y-16">
         {/* Section Header */}
         <div className="text-center space-y-4">
@@ -122,7 +122,7 @@ export default function CapabilitiesSection() {
         </div>
 
         {/* Code Architecture Lab Showcase */}
-        <div id="architecture" className="pt-8">
+        <div id="architecture" className="pt-12 scroll-mt-32">
           <div className="text-center space-y-3 mb-8">
             <span className="text-xs uppercase font-mono tracking-widest text-cyan-400">
               Interactive System Design
