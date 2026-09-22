@@ -189,8 +189,8 @@ export default function ProjectGrid({ projects }: ProjectGridProps) {
             </AnimatePresence>
           )}
 
-          {/* Bottom Dot Pagination & Navigation */}
-          <div className="flex flex-wrap items-center justify-between pt-2 border-t border-white/10 gap-4">
+          {/* Bottom Dot Pagination & Live Status Bar */}
+          <div className="flex flex-col sm:flex-row items-center justify-between pt-4 border-t border-white/10 gap-3 select-none">
             <div className="flex items-center space-x-2">
               {filteredProjects.map((p, idx) => (
                 <button
@@ -207,9 +207,18 @@ export default function ProjectGrid({ projects }: ProjectGridProps) {
               ))}
             </div>
 
-            <span className="text-xs font-mono text-slate-400">
-              Hover to pause • Click card to view project details
-            </span>
+            <div className="flex items-center space-x-2 text-xs font-mono">
+              {isHovered ? (
+                <span className="inline-flex items-center space-x-1.5 px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-300 transition-all">
+                  <span className="w-2 h-2 rounded-full bg-amber-400 animate-pulse" />
+                  <span>Auto-Play Paused on Hover</span>
+                </span>
+              ) : (
+                <span className="text-slate-400 transition-colors">
+                  Hover to pause • Click card to view project details
+                </span>
+              )}
+            </div>
           </div>
         </div>
 
