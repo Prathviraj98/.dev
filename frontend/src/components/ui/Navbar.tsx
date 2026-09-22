@@ -2,13 +2,13 @@
 
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Code2, Cpu, Briefcase, Mail, Menu, X, Sparkles, Sun, Moon } from 'lucide-react';
-import { useTheme } from '@/components/providers/ThemeContext';
+import { Code2, Cpu, Briefcase, Mail, Menu, X, Sparkles, Sun, Sunrise, Sunset, Moon, Clock } from 'lucide-react';
+import { useTheme, TIME_MODES_INFO, TimeMode } from '@/components/providers/ThemeContext';
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const { isDaytime, toggleDaytime } = useTheme();
+  const { timeMode, isAuto, cycleTimeMode } = useTheme();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -25,6 +25,22 @@ export default function Navbar() {
     { name: 'Contact', href: '#contact', icon: Mail },
   ];
 
+  const currentInfo = TIME_MODES_INFO[timeMode];
+
+  const renderThemeIcon = (mode: TimeMode) => {
+    switch (mode) {
+      case 'morning':
+        return <Sunrise className="w-4 h-4 text-amber-400" />;
+      case 'afternoon':
+        return <Sun className="w-4 h-4 text-cyan-400" />;
+      case 'evening':
+        return <Sunset className="w-4 h-4 text-pink-400" />;
+      case 'night':
+      default:
+        return <Moon className="w-4 h-4 text-emerald-400" />;
+    }
+  };
+
   return (
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
@@ -33,7 +49,7 @@ export default function Navbar() {
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between">
-          {/* Brand Logo (Clean .DEV text) */}
+          {/* Brand Logo (.DEV text) */}
           <a
             href="#"
             className="flex items-center space-x-2 group cursor-pointer focus:outline-none"
@@ -66,32 +82,35 @@ export default function Navbar() {
             })}
           </nav>
 
-          {/* Availability Status, Theme Toggle & CTA */}
+          {/* Availability Status, Time Theme Toggle & CTA */}
           <div className="hidden md:flex items-center space-x-3">
-            {/* Day/Night Coding Ambiance Toggle Button */}
+            {/* Automatic Space Time-Based Theme Toggle Button */}
             <button
-              onClick={toggleDaytime}
-              className="flex items-center space-x-2 px-3 py-1.5 rounded-full glass-panel border border-white/10 hover:border-cyan-400/50 transition-all text-xs font-mono text-slate-300 hover:text-white group focus:outline-none"
-              title={isDaytime ? 'Solar Day IDE Mode (6 AM - 6 PM)' : 'Night Matrix Hacker Ambiance'}
+              onClick={cycleTimeMode}
+              className="flex items-center space-x-2 px-3.5 py-1.5 rounded-full glass-panel border border-white/10 hover:border-cyan-400/50 transition-all text-xs font-mono text-slate-300 hover:text-white group focus:outline-none"
+              title={`Current Theme: ${currentInfo.name} (${currentInfo.timeRange}). Click to cycle themes.`}
             >
               <AnimatePresence mode="wait" initial={false}>
                 <motion.div
-                  key={isDaytime ? 'sun' : 'moon'}
+                  key={timeMode}
                   initial={{ rotate: -90, scale: 0 }}
                   animate={{ rotate: 0, scale: 1 }}
                   exit={{ rotate: 90, scale: 0 }}
                   transition={{ duration: 0.15 }}
                 >
-                  {isDaytime ? (
-                    <Sun className="w-4 h-4 text-amber-400 group-hover:rotate-45 transition-transform" />
-                  ) : (
-                    <Moon className="w-4 h-4 text-cyan-400 group-hover:-rotate-12 transition-transform" />
-                  )}
+                  {renderThemeIcon(timeMode)}
                 </motion.div>
               </AnimatePresence>
-              <span className="hidden xl:inline text-[11px] font-semibold tracking-wider text-slate-300">
-                {isDaytime ? 'SOLAR IDE' : 'NIGHT MATRIX'}
+
+              <span className="hidden xl:inline text-[11px] font-semibold tracking-wider uppercase text-slate-200">
+                {timeMode} SPACE
               </span>
+
+              {isAuto && (
+                <span className="px-1.5 py-0.5 rounded text-[9px] font-bold font-mono bg-cyan-500/20 text-cyan-300 border border-cyan-500/30">
+                  AUTO
+                </span>
+              )}
             </button>
 
             <div className="hidden lg:flex items-center space-x-2 px-3 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-xs font-mono">
@@ -114,11 +133,11 @@ export default function Navbar() {
           {/* Mobile Menu Button & Mobile Theme Toggle */}
           <div className="flex md:hidden items-center space-x-2">
             <button
-              onClick={toggleDaytime}
-              className="p-2 rounded-xl text-slate-300 hover:text-white glass-panel focus:outline-none"
-              title="Toggle Day / Night Coding Ambiance"
+              onClick={cycleTimeMode}
+              className="p-2 rounded-xl text-slate-300 hover:text-white glass-panel focus:outline-none flex items-center gap-1"
+              title="Cycle Space Time Theme"
             >
-              {isDaytime ? <Sun className="w-5 h-5 text-amber-400" /> : <Moon className="w-5 h-5 text-cyan-400" />}
+              {renderThemeIcon(timeMode)}
             </button>
 
             <button
@@ -158,13 +177,14 @@ export default function Navbar() {
             })}
             <div className="pt-2 border-t border-white/10 flex flex-col space-y-3">
               <button
-                onClick={toggleDaytime}
+                onClick={cycleTimeMode}
                 className="w-full py-2.5 px-4 rounded-xl glass-panel flex items-center justify-between text-xs font-mono text-slate-200"
               >
-                <span>Theme Mode:</span>
-                <span className="flex items-center space-x-1.5 font-bold text-cyan-400">
-                  {isDaytime ? <Sun className="w-4 h-4 text-amber-400" /> : <Moon className="w-4 h-4 text-cyan-400" />}
-                  <span>{isDaytime ? 'Solar Day IDE' : 'Night Matrix'}</span>
+                <span>Space Theme:</span>
+                <span className="flex items-center space-x-1.5 font-bold text-cyan-400 uppercase">
+                  {renderThemeIcon(timeMode)}
+                  <span>{timeMode}</span>
+                  {isAuto && <span className="text-[10px] text-cyan-300 font-mono">(AUTO)</span>}
                 </span>
               </button>
 

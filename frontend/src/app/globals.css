@@ -24,22 +24,48 @@
     transition: background-color 0.8s ease, background-image 0.8s ease;
   }
 
-  /* Bright Solar Day IDE Coding Theme */
-  body.day-mode {
-    background-color: #0f172a;
+  /* 1. Morning Sunrise Space & Coding Theme (6 AM - 12 PM) */
+  body.theme-morning {
+    background-color: #090e18;
     background-image:
-      radial-gradient(ellipse 90% 60% at 50% -10%, rgba(56, 189, 248, 0.38), transparent),
-      radial-gradient(ellipse 75% 55% at 85% 50%, rgba(245, 158, 11, 0.28), transparent),
-      radial-gradient(ellipse 65% 65% at 15% 85%, rgba(16, 185, 129, 0.28), transparent);
+      radial-gradient(ellipse 90% 65% at 50% -10%, rgba(245, 158, 11, 0.28), transparent),
+      radial-gradient(ellipse 75% 55% at 85% 45%, rgba(56, 189, 248, 0.25), transparent),
+      radial-gradient(ellipse 65% 65% at 15% 85%, rgba(16, 185, 129, 0.22), transparent);
   }
 
-  /* Deep Midnight Hacker Matrix Coding Theme */
-  body.night-mode {
-    background-color: #050811;
+  /* 2. Solar Afternoon Space & Coding Theme (12 PM - 5 PM) */
+  body.theme-afternoon {
+    background-color: #0a1526;
     background-image:
-      radial-gradient(ellipse 90% 60% at 50% -10%, rgba(34, 197, 94, 0.30), transparent),
-      radial-gradient(ellipse 75% 55% at 85% 50%, rgba(6, 182, 212, 0.25), transparent),
-      radial-gradient(ellipse 65% 65% at 15% 85%, rgba(168, 85, 247, 0.25), transparent);
+      radial-gradient(ellipse 90% 65% at 50% -10%, rgba(6, 182, 212, 0.35), transparent),
+      radial-gradient(ellipse 75% 55% at 85% 45%, rgba(99, 102, 241, 0.30), transparent),
+      radial-gradient(ellipse 65% 65% at 15% 85%, rgba(234, 179, 8, 0.22), transparent);
+  }
+
+  /* 3. Dusk Evening Space & Coding Theme (5 PM - 9 PM) */
+  body.theme-evening {
+    background-color: #12091c;
+    background-image:
+      radial-gradient(ellipse 90% 65% at 50% -10%, rgba(236, 72, 153, 0.32), transparent),
+      radial-gradient(ellipse 75% 55% at 85% 45%, rgba(168, 85, 247, 0.28), transparent),
+      radial-gradient(ellipse 65% 65% at 15% 85%, rgba(249, 115, 22, 0.25), transparent);
+  }
+
+  /* 4. Deep Space Night & Matrix Coding Theme (9 PM - 6 AM) */
+  body.theme-night {
+    background-color: #030712;
+    background-image:
+      radial-gradient(ellipse 90% 65% at 50% -10%, rgba(34, 197, 94, 0.28), transparent),
+      radial-gradient(ellipse 75% 55% at 85% 45%, rgba(6, 182, 212, 0.25), transparent),
+      radial-gradient(ellipse 65% 65% at 15% 85%, rgba(168, 85, 247, 0.22), transparent);
+  }
+
+  /* Backward Compatibility Fallbacks */
+  body.day-mode {
+    background-color: #0a1526;
+  }
+  body.night-mode {
+    background-color: #030712;
   }
 }
 
