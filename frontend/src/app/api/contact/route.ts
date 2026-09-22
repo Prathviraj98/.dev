@@ -15,11 +15,11 @@ export async function POST(request: Request) {
 
     const inquiryId = `INQ-${Math.floor(100000 + Math.random() * 900000)}`;
     const resendApiKey = process.env.RESEND_API_KEY;
-    const protonRecipients = ['d0tdev@proton.me', 'darlings_protonmail@protonmail.ch'];
+    const targetRecipient = process.env.TO_EMAIL || 'd0tdev@proton.me';
     const gmailRecipient = 'gunmr00@gmail.com';
     const safeBudget = (budget_range || '$5k - $10k').replace(/\$/g, 'USD ');
 
-    console.log(`[EMAIL DISPATCH] Dispatching submission to ProtonMail (${protonRecipients.join(', ')}) and Gmail (${gmailRecipient})`);
+    console.log(`[EMAIL DISPATCH] Dispatching submission to ${targetRecipient}`);
 
     // Create Email Body HTML & Text
     const htmlContent = `
@@ -68,7 +68,7 @@ ${message}
         const resend = new Resend(resendApiKey);
         const sendPromise = resend.emails.send({
           from: process.env.SENDER_EMAIL || 'onboarding@resend.dev',
-          to: ['d0tdev@proton.me'],
+          to: [targetRecipient],
           subject: `[Project Brief] ${project_scope} - ${name} (${safeBudget})`,
           html: htmlContent,
           text: textContent,
