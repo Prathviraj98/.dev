@@ -3,6 +3,7 @@ import './globals.css';
 import SmoothScrollProvider from '@/components/providers/SmoothScrollProvider';
 import { ThemeProvider } from '@/components/providers/ThemeContext';
 import Background3D from '@/components/3d/Background3D';
+import AstronautCursor from '@/components/ui/AstronautCursor';
 
 export const metadata: Metadata = {
   title: '.DEV — Premium Full-Stack Architecture & 3D Engineering',
@@ -27,6 +28,9 @@ export default function RootLayout({
           <SmoothScrollProvider>
             {/* 3D WebGL Interactive Coding Theme Canvas */}
             <Background3D />
+
+            {/* Astronaut Avatar Cursor & Particle Trail */}
+            <AstronautCursor />
 
             {/* Main App Content Container */}
             <div className="relative z-10 flex flex-col min-h-screen">
