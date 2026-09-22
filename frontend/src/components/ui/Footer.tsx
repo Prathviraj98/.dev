@@ -1,7 +1,6 @@
 'use client';
 
-import { Shield } from 'lucide-react';
-import Logo from './Logo';
+import { Terminal, Github, Twitter, Linkedin, Heart, Shield } from 'lucide-react';
 
 export default function Footer() {
   return (
@@ -9,9 +8,11 @@ export default function Footer() {
       <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
         {/* Brand & System Status */}
         <div className="flex flex-col items-center md:items-start space-y-2">
-          <a href="#" className="focus:outline-none">
-            <Logo className="h-8 w-auto" showStatus={false} />
-          </a>
+          <div className="flex items-center space-x-2">
+            <span className="text-xl font-black text-white tracking-tight">
+              <span className="text-cyan-400 font-mono font-extrabold">.</span>DEV
+            </span>
+          </div>
           <p className="text-xs text-slate-400 font-mono">
             High-Performance Full-Stack & 3D Engineering Architecture
           </p>

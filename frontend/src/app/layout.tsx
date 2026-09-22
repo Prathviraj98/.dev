@@ -6,7 +6,7 @@ import Background3D from '@/components/3d/Background3D';
 import AstronautCursor from '@/components/ui/AstronautCursor';
 
 export const metadata: Metadata = {
-  title: '.DEV — Premium Full-Stack Architecture & 3D Engineering',
+  title: '.Dev',
   description: 'Elite full-stack software architecture, AI document pipelines, 3D WebGL interfaces, zero-knowledge encryption, and high-performance distributed web applications.',
   keywords: ['Full Stack Engineer', 'Next.js 14', 'FastAPI', 'Three.js', 'React Three Fiber', 'PostgreSQL', 'Redis', 'WebGL'],
   icons: {

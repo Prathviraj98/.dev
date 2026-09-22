@@ -4,7 +4,6 @@ import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Code2, Cpu, Briefcase, Mail, Menu, X, Sparkles, Sun, Sunrise, Sunset, Moon, Clock } from 'lucide-react';
 import { useTheme, TIME_MODES_INFO, TimeMode } from '@/components/providers/ThemeContext';
-import Logo from './Logo';
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
@@ -50,9 +49,20 @@ export default function Navbar() {
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between">
-          {/* Brand Logo (.DEV SVG Logo) */}
-          <a href="#" className="focus:outline-none">
-            <Logo className="h-9 w-auto" />
+          {/* Brand Logo (.DEV text) */}
+          <a
+            href="#"
+            className="flex items-center space-x-2 group cursor-pointer focus:outline-none"
+          >
+            <div className="flex flex-col">
+              <span className="text-2xl font-black tracking-tight text-white flex items-center">
+                <span className="text-cyan-400 font-mono font-extrabold">.</span>DEV
+              </span>
+              <span className="text-[10px] uppercase tracking-widest text-slate-400 font-mono flex items-center gap-1">
+                <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+                System Ready
+              </span>
+            </div>
           </a>
 
           {/* Desktop Navigation Links */}
