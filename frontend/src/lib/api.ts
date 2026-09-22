@@ -266,7 +266,10 @@ export async function fetchLiveGitHubProjects(): Promise<Project[]> {
     if (!Array.isArray(repos)) return SEED_PROJECTS;
 
     const liveProjects: Project[] = repos
-      .filter((repo: any) => !repo.fork && !repo.private && repo.name.toLowerCase() !== GITHUB_USERNAME.toLowerCase())
+      .filter((repo: any) => {
+        const name = (repo.name || '').toLowerCase();
+        return !repo.fork && !repo.private && name !== GITHUB_USERNAME.toLowerCase() && name !== '.dev' && name !== 'dev' && name !== 'dot-dev';
+      })
       .map((repo: any) => {
         const name = repo.name;
         const slug = name.toLowerCase().replace(/_/g, '-').replace(/\./g, '-');

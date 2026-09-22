@@ -89,7 +89,7 @@ async def sync_github_projects(db: AsyncSession) -> int:
 
         for repo in repos:
             repo_name = repo["name"]
-            if repo.get("fork") or repo.get("private") or repo_name.lower() == GITHUB_USERNAME.lower():
+            if repo.get("fork") or repo.get("private") or repo_name.lower() in [GITHUB_USERNAME.lower(), ".dev", "dev", "dot-dev"]:
                 continue
 
             slug = repo_name.lower().replace("_", "-").replace(".", "-")
