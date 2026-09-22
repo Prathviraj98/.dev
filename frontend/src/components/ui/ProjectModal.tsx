@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, ExternalLink, Github, CheckCircle2, Layers, Cpu } from 'lucide-react';
+import { X, CheckCircle2, Layers, Cpu } from 'lucide-react';
 import { Project } from '@/types';
 
 interface ProjectModalProps {
@@ -144,22 +144,7 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
             </div>
 
             {/* Action Links */}
-            <div className="flex flex-wrap items-center justify-between gap-4 pt-4 border-t border-white/10">
-              <div className="flex items-center space-x-3">
-                {project.live_url && !project.live_url.includes('github.com') && (
-                  <a
-                    href={project.live_url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center space-x-2 px-4 py-2 rounded-xl bg-primary text-white text-xs font-mono font-medium hover:bg-primary-hover transition-colors shadow-lg shadow-primary/25"
-                  >
-                    <ExternalLink className="w-4 h-4" />
-                    <span>Live Demonstration</span>
-                  </a>
-                )}
-              </div>
-
-
+            <div className="flex flex-wrap items-center justify-end gap-4 pt-4 border-t border-white/10">
               <button
                 onClick={onClose}
                 className="px-5 py-2 rounded-xl text-xs font-mono text-slate-400 hover:text-white transition-colors"
