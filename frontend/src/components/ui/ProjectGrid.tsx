@@ -62,8 +62,8 @@ export default function ProjectGrid({ projects }: ProjectGridProps) {
   };
 
   return (
-    <section id="portfolio" className="py-24 px-4 sm:px-6 lg:px-8 relative z-10 scroll-mt-28">
-      <div className="max-w-7xl mx-auto space-y-10">
+    <section id="portfolio" className="py-12 sm:py-16 px-4 sm:px-6 lg:px-8 relative z-10 scroll-mt-16 sm:scroll-mt-20">
+      <div className="max-w-7xl mx-auto space-y-8 sm:space-y-10">
         {/* Section Title Header */}
         <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6">
           <div className="space-y-3">

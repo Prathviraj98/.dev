@@ -59,7 +59,7 @@ export default function HeroSection() {
             className="w-full sm:w-auto px-8 py-4 rounded-xl glass-card text-white font-medium text-sm sm:text-base flex items-center justify-center space-x-2 border border-white/10 hover:border-white/20 transition-all hover:bg-white/5"
           >
             <Code2 className="w-4 h-4 text-cyan-400" />
-            <span>Explore Case Studies</span>
+            <span>Explore Projects</span>
           </a>
         </motion.div>
 
