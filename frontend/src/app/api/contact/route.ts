@@ -62,11 +62,11 @@ ${message}
     let emailDelivered = false;
     let emailId = '';
 
-    // Primary Email Provider: Resend SDK
+    // Primary Email Provider: Resend SDK (with 3.5s max timeout)
     if (resendApiKey) {
       try {
         const resend = new Resend(resendApiKey);
-        const resendResult = await resend.emails.send({
+        const sendPromise = resend.emails.send({
           from: process.env.SENDER_EMAIL || 'onboarding@resend.dev',
           to: ['d0tdev@proton.me'],
           subject: `[Project Brief] ${project_scope} - ${name} (${safeBudget})`,
@@ -75,15 +75,21 @@ ${message}
           replyTo: email,
         });
 
-        if (resendResult.data && !resendResult.error) {
+        const timeoutPromise = new Promise((_, reject) =>
+          setTimeout(() => reject(new Error('Resend dispatch timeout')), 3500)
+        );
+
+        const resendResult: any = await Promise.race([sendPromise, timeoutPromise]);
+
+        if (resendResult && resendResult.data && !resendResult.error) {
           emailDelivered = true;
           emailId = resendResult.data.id;
           console.log(`[EMAIL] Resend delivered email ID:`, emailId);
-        } else if (resendResult.error) {
+        } else if (resendResult && resendResult.error) {
           console.warn('[EMAIL] Resend returned error:', resendResult.error);
         }
       } catch (err: any) {
-        console.warn('[EMAIL] Resend SDK exception:', err.message);
+        console.warn('[EMAIL] Resend SDK exception or timeout:', err.message);
       }
     }
 
