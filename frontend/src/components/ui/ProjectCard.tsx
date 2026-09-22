@@ -10,6 +10,7 @@ interface ProjectCardProps {
   onSelect: (project: Project) => void;
   index: number;
   defaultMinimized?: boolean;
+  hideMinimizeButton?: boolean;
 }
 
 export default function ProjectCard({
@@ -17,6 +18,7 @@ export default function ProjectCard({
   onSelect,
   index,
   defaultMinimized = true,
+  hideMinimizeButton = false,
 }: ProjectCardProps) {
   const cardRef = useRef<HTMLDivElement>(null);
   const [isMinimized, setIsMinimized] = useState<boolean>(defaultMinimized);
@@ -148,14 +150,16 @@ export default function ProjectCard({
               </div>
 
               {/* Minimize Trigger Button */}
-              <button
-                onClick={toggleExpand}
-                className="absolute top-3 right-3 z-20 px-3 py-1.5 rounded-full bg-slate-950/80 backdrop-blur-md text-slate-300 hover:text-white border border-white/20 text-xs font-mono font-medium flex items-center gap-1 transition-all"
-                title="Minimize Card"
-              >
-                <Minimize2 className="w-3.5 h-3.5 text-cyan-400" />
-                <span>Minimize</span>
-              </button>
+              {!hideMinimizeButton && (
+                <button
+                  onClick={toggleExpand}
+                  className="absolute top-3 right-3 z-20 px-3 py-1.5 rounded-full bg-slate-950/80 backdrop-blur-md text-slate-300 hover:text-white border border-white/20 text-xs font-mono font-medium flex items-center gap-1 transition-all"
+                  title="Minimize Card"
+                >
+                  <Minimize2 className="w-3.5 h-3.5 text-cyan-400" />
+                  <span>Minimize</span>
+                </button>
+              )}
             </div>
 
             {/* Maximized Body Content */}

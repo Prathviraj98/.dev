@@ -183,6 +183,7 @@ export default function ProjectGrid({ projects }: ProjectGridProps) {
                   onSelect={setActiveProject}
                   index={0}
                   defaultMinimized={false}
+                  hideMinimizeButton={true}
                 />
               </motion.div>
             </AnimatePresence>
