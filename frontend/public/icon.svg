@@ -1,12 +1,30 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" width="128" height="128">
-  <rect width="128" height="128" rx="28" fill="#07090e"/>
-  <rect x="3" y="3" width="122" height="122" rx="25" fill="none" stroke="url(#accentGrad)" stroke-width="6"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" width="128" height="128" fill="none">
+  <rect width="128" height="128" rx="28" fill="#07090e" />
+  <rect x="2" y="2" width="124" height="124" rx="26" fill="none" stroke="url(#cyanGradIcon)" stroke-width="4" opacity="0.4" />
   <defs>
-    <linearGradient id="accentGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#06b6d4"/>
-      <stop offset="50%" stop-color="#6366f1"/>
-      <stop offset="100%" stop-color="#8b5cf6"/>
+    <linearGradient id="cyanGradIcon" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#00bcd4" />
+      <stop offset="100%" stop-color="#0288d1" />
     </linearGradient>
+    <filter id="glowIcon" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="4" result="blur1" />
+      <feMerge>
+        <feMergeNode in="blur1" />
+        <feMergeNode in="SourceGraphic" />
+      </feMerge>
+    </filter>
   </defs>
-  <text x="64" y="76" font-family="'Fira Code', 'JetBrains Mono', monospace, sans-serif" font-size="36" font-weight="900" fill="#38bdf8" text-anchor="middle" letter-spacing="-1">.DEV</text>
+
+  <!-- Cyan Dot / Terminal Indicator -->
+  <g>
+    <circle cx="42" cy="64" r="22" fill="#00bcd4" opacity="0.25" filter="url(#glowIcon)" />
+    <circle cx="42" cy="64" r="18" fill="url(#cyanGradIcon)" />
+    <circle cx="42" cy="64" r="8" fill="#ffffff" />
+  </g>
+
+  <!-- DEV Wordmark -->
+  <text x="70" y="78" font-family="-apple-system, BlinkMacSystemFont, 'Inter', 'Montserrat', sans-serif" font-weight="900" font-size="44" fill="#ffffff" letter-spacing="-1">DEV</text>
+
+  <!-- Accent Underline -->
+  <rect x="71" y="86" width="24" height="4" rx="2" fill="url(#cyanGradIcon)" />
 </svg>
