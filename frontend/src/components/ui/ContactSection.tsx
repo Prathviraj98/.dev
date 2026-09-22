@@ -110,16 +110,16 @@ export default function ContactSection() {
     <section id="contact" className="py-12 sm:py-16 px-4 sm:px-6 lg:px-8 relative z-10 scroll-mt-16 sm:scroll-mt-20">
       <div className="max-w-6xl mx-auto space-y-12">
         {/* Section Header */}
-        <div className="text-center space-y-4">
+        <div className="flex flex-col items-center justify-center text-center gap-4 relative z-10 max-w-3xl mx-auto">
           <div className="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-xs font-mono">
             <Mail className="w-3.5 h-3.5" />
             <span>START A PROJECT</span>
           </div>
-          <h2 className="text-3xl sm:text-5xl font-extrabold text-white tracking-tight">
+          <h2 className="text-3xl sm:text-5xl font-extrabold text-white tracking-tight leading-tight sm:leading-none my-0">
             Let’s Build Something <span className="text-gradient-cyan">Extraordinary</span>
           </h2>
-          <p className="text-slate-400 text-sm max-w-xl mx-auto">
-            Ready to elevate your engineering standard? Tell us about your project scope and timeline below.
+          <p className="text-slate-300 text-sm sm:text-base max-w-xl mx-auto leading-relaxed my-0">
+            Ready to elevate your engineering standard? Tell us about your project scope and architectural constraints below.
           </p>
         </div>
 

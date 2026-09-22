@@ -40,7 +40,7 @@ export default function CapabilitiesSection() {
     <section id="capabilities" className="py-12 sm:py-16 px-4 sm:px-6 lg:px-8 relative z-10 scroll-mt-16 sm:scroll-mt-20">
       <div className="max-w-7xl mx-auto space-y-10 sm:space-y-12">
         {/* Section Header */}
-        <div className="text-center space-y-4">
+        <div className="flex flex-col items-center justify-center text-center gap-4 max-w-3xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 15 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -56,7 +56,7 @@ export default function CapabilitiesSection() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.1 }}
-            className="text-3xl sm:text-5xl font-extrabold text-white tracking-tight"
+            className="text-3xl sm:text-5xl font-extrabold text-white tracking-tight leading-tight sm:leading-none my-0"
           >
             Architected for <span className="text-gradient-cyan">Scale & Speed</span>
           </motion.h2>
@@ -66,7 +66,7 @@ export default function CapabilitiesSection() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.2 }}
-            className="max-w-2xl mx-auto text-slate-400 text-sm sm:text-base"
+            className="max-w-2xl mx-auto text-slate-400 text-sm sm:text-base leading-relaxed my-0"
           >
             We bridge deep software engineering with modern visual aesthetics, delivering robust backend pipelines and ultra-responsive user experiences.
           </motion.p>
