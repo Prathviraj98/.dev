@@ -1,0 +1,23 @@
+# Dependencies
+node_modules/
+backend/venv/
+venv/
+__pycache__/
+*.pyc
+
+# Next.js Build & Cache
+.next/
+out/
+build/
+
+# Environment Variables & Secrets
+.env
+.env.local
+.env.*.local
+*.env
+
+# IDE & OS Files
+.DS_Store
+.vscode/
+.idea/
+*.log
