@@ -10,7 +10,9 @@ export const metadata: Metadata = {
   description: 'Elite full-stack software architecture, AI document pipelines, 3D WebGL interfaces, zero-knowledge encryption, and high-performance distributed web applications.',
   keywords: ['Full Stack Engineer', 'Next.js 14', 'FastAPI', 'Three.js', 'React Three Fiber', 'PostgreSQL', 'Redis', 'WebGL'],
   icons: {
-    icon: '/icon.svg',
+    icon: [
+      { url: '/icon.svg', type: 'image/svg+xml' },
+    ],
     shortcut: '/icon.svg',
     apple: '/icon.svg',
   },
