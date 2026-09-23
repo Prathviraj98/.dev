@@ -122,7 +122,7 @@ export default function ProjectGrid({ projects }: ProjectGridProps) {
                         project={project}
                         onSelect={setActiveProject}
                         index={idx}
-                        defaultMinimized={idx !== 0}
+                        defaultMinimized={true}
                         hideMinimizeButton={false}
                       />
                     </motion.div>
