@@ -1,0 +1,120 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "name": "DotDev App Theme",
+  "version": "1.0.0",
+  "description": "Exported design tokens, color palette, glassmorphism specs, and time-of-day theme definitions (excluding animated 3D canvas).",
+  "colors": {
+    "background": {
+      "default": "#07090e",
+      "morning": "#090e18",
+      "afternoon": "#0a1526",
+      "evening": "#12091c",
+      "night": "#030712"
+    },
+    "surface": {
+      "default": "#0d111a",
+      "lighter": "#151c2a",
+      "card": "rgba(15, 23, 42, 0.65)"
+    },
+    "primary": {
+      "default": "#6366f1",
+      "hover": "#4f46e5",
+      "glow": "rgba(99, 102, 241, 0.35)"
+    },
+    "accent": {
+      "cyan": "#06b6d4",
+      "emerald": "#10b981",
+      "violet": "#8b5cf6",
+      "pink": "#ec4899",
+      "amber": "#f59e0b",
+      "sky": "#38bdf8"
+    },
+    "border": {
+      "glass": "rgba(255, 255, 255, 0.08)",
+      "highlight": "rgba(99, 102, 241, 0.3)",
+      "hoverCyan": "rgba(56, 189, 248, 0.4)"
+    }
+  },
+  "typography": {
+    "fontFamily": {
+      "sans": ["Inter", "system-ui", "-apple-system", "sans-serif"],
+      "mono": ["Fira Code", "JetBrains Mono", "monospace"]
+    }
+  },
+  "glassmorphism": {
+    "panel": {
+      "background": "rgba(13, 17, 26, 0.70)",
+      "backdropBlur": "16px",
+      "border": "1px solid rgba(255, 255, 255, 0.10)",
+      "boxShadow": "0 8px 32px 0 rgba(0, 0, 0, 0.37)"
+    },
+    "card": {
+      "background": "linear-gradient(135deg, rgba(255, 255, 255, 0.06) 0%, rgba(255, 255, 255, 0.02) 100%)",
+      "backdropBlur": "20px",
+      "border": "1px solid rgba(255, 255, 255, 0.10)",
+      "hoverBorder": "rgba(56, 189, 248, 0.4)",
+      "hoverShadow": "0 12px 40px -10px rgba(56, 189, 248, 0.25)"
+    },
+    "nav": {
+      "background": "rgba(7, 9, 14, 0.80)",
+      "backdropBlur": "20px",
+      "borderBottom": "1px solid rgba(255, 255, 255, 0.08)"
+    }
+  },
+  "gradients": {
+    "textCyan": "linear-gradient(135deg, #38bdf8 0%, #818cf8 50%, #c084fc 100%)",
+    "textGold": "linear-gradient(135deg, #f59e0b 0%, #fbbf24 50%, #f43f5e 100%)",
+    "glowBorder": "linear-gradient(135deg, rgba(56, 189, 248, 0.6), rgba(34, 197, 94, 0.3), transparent)"
+  },
+  "shadows": {
+    "glassGlow": "0 8px 32px 0 rgba(0, 0, 0, 0.37), inset 0 0 0 1px rgba(255, 255, 255, 0.08)",
+    "neonCyan": "0 0 25px rgba(6, 182, 212, 0.4)",
+    "neonIndigo": "0 0 25px rgba(99, 102, 241, 0.4)"
+  },
+  "timeModes": {
+    "morning": {
+      "name": "Morning Sunrise",
+      "timeRange": "6:00 AM – 11:59 AM",
+      "accentColor": "#f59e0b",
+      "backgroundColor": "#090e18",
+      "backgroundGradients": [
+        "radial-gradient(ellipse 90% 65% at 50% -10%, rgba(245, 158, 11, 0.28), transparent)",
+        "radial-gradient(ellipse 75% 55% at 85% 45%, rgba(56, 189, 248, 0.25), transparent)",
+        "radial-gradient(ellipse 65% 65% at 15% 85%, rgba(16, 185, 129, 0.22), transparent)"
+      ]
+    },
+    "afternoon": {
+      "name": "Solar Afternoon",
+      "timeRange": "12:00 PM – 4:59 PM",
+      "accentColor": "#06b6d4",
+      "backgroundColor": "#0a1526",
+      "backgroundGradients": [
+        "radial-gradient(ellipse 90% 65% at 50% -10%, rgba(6, 182, 212, 0.35), transparent)",
+        "radial-gradient(ellipse 75% 55% at 85% 45%, rgba(99, 102, 241, 0.30), transparent)",
+        "radial-gradient(ellipse 65% 65% at 15% 85%, rgba(234, 179, 8, 0.22), transparent)"
+      ]
+    },
+    "evening": {
+      "name": "Dusk Twilight",
+      "timeRange": "5:00 PM – 8:59 PM",
+      "accentColor": "#ec4899",
+      "backgroundColor": "#12091c",
+      "backgroundGradients": [
+        "radial-gradient(ellipse 90% 65% at 50% -10%, rgba(236, 72, 153, 0.32), transparent)",
+        "radial-gradient(ellipse 75% 55% at 85% 45%, rgba(168, 85, 247, 0.28), transparent)",
+        "radial-gradient(ellipse 65% 65% at 15% 85%, rgba(249, 115, 22, 0.25), transparent)"
+      ]
+    },
+    "night": {
+      "name": "Deep Space Night",
+      "timeRange": "9:00 PM – 5:59 AM",
+      "accentColor": "#10b981",
+      "backgroundColor": "#030712",
+      "backgroundGradients": [
+        "radial-gradient(ellipse 90% 65% at 50% -10%, rgba(34, 197, 94, 0.28), transparent)",
+        "radial-gradient(ellipse 75% 55% at 85% 45%, rgba(6, 182, 212, 0.25), transparent)",
+        "radial-gradient(ellipse 65% 65% at 15% 85%, rgba(168, 85, 247, 0.22), transparent)"
+      ]
+    }
+  }
+}
