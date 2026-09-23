@@ -2,7 +2,7 @@
 
 import React, { useRef, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ArrowUpRight, Maximize2, Minimize2, ChevronDown, ChevronUp, Layers } from 'lucide-react';
+import { ArrowUpRight, Maximize2, ChevronDown, ChevronUp, Layers } from 'lucide-react';
 import { Project } from '@/types';
 
 interface ProjectCardProps {
@@ -149,18 +149,7 @@ export default function ProjectCard({
                 </span>
               </div>
 
-              {/* Minimize Trigger Button */}
-              {!hideMinimizeButton && (
-                <button
-                  onClick={toggleExpand}
-                  className="absolute top-3 right-3 z-20 px-3 py-1.5 rounded-full bg-slate-950/80 backdrop-blur-md text-slate-300 hover:text-white border border-white/20 text-xs font-mono font-medium flex items-center gap-1 transition-all"
-                  title="Minimize Card"
-                >
-                  <Minimize2 className="w-3.5 h-3.5 text-cyan-400" />
-                  <span>Minimize</span>
-                </button>
-              )}
-            </div>
+              </div>
 
             {/* Maximized Body Content */}
             <div className="p-6 space-y-4 flex-1 flex flex-col justify-between">
