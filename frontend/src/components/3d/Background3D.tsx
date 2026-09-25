@@ -110,16 +110,22 @@ export default function Background3D() {
     renderer.domElement.style.position = 'fixed';
     renderer.domElement.style.top = '0';
     renderer.domElement.style.left = '0';
-    renderer.domElement.style.width = '100%';
-    renderer.domElement.style.height = '100%';
+    renderer.domElement.style.width = '100vw';
+    renderer.domElement.style.height = '100vh';
+    renderer.domElement.style.maxWidth = '100%';
+    renderer.domElement.style.maxHeight = '100%';
     renderer.domElement.style.pointerEvents = 'none';
     renderer.domElement.style.zIndex = '0';
 
     container.innerHTML = '';
     container.appendChild(renderer.domElement);
 
+    // Adaptive Mobile & Tablet WebGL Performance Scaling
+    const isMobile = window.innerWidth < 768;
+    const isTablet = window.innerWidth >= 768 && window.innerWidth < 1024;
+
     // 2. Deep Space Twinkling Starfield
-    const starCount = 3200;
+    const starCount = isMobile ? 1200 : isTablet ? 2000 : 3200;
     const starPositions = new Float32Array(starCount * 3);
     const starSizes = new Float32Array(starCount);
 
@@ -181,7 +187,7 @@ export default function Background3D() {
     const glyphTexture = createCodeGlyphTexture();
 
     // 4. Interactive Space Code Particles (Coding Rain Stream)
-    const particleCount = 2000;
+    const particleCount = isMobile ? 700 : isTablet ? 1200 : 2000;
     const positions = new Float32Array(particleCount * 3);
     const colors = new Float32Array(particleCount * 3);
     const velocities = new Float32Array(particleCount * 3);
@@ -206,7 +212,7 @@ export default function Background3D() {
     particleGeometry.setAttribute('color', new THREE.BufferAttribute(colors, 3));
 
     const particleMaterial = new THREE.PointsMaterial({
-      size: 3.2,
+      size: isMobile ? 2.5 : 3.2,
       vertexColors: true,
       map: glyphTexture,
       transparent: true,
@@ -219,7 +225,8 @@ export default function Background3D() {
     scene.add(particleSystem);
 
     // 5. Gravitational Wave Cyber Floor Grid
-    const gridGeometry = new THREE.PlaneGeometry(180, 180, 64, 64);
+    const gridSegments = isMobile ? 32 : isTablet ? 48 : 64;
+    const gridGeometry = new THREE.PlaneGeometry(180, 180, gridSegments, gridSegments);
     const gridPositions = gridGeometry.attributes.position;
 
     const gridMaterial = new THREE.MeshBasicMaterial({

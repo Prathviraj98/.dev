@@ -107,8 +107,8 @@ export default function ContactSection() {
   };
 
   return (
-    <section id="contact" className="py-12 sm:py-16 px-4 sm:px-6 lg:px-8 relative z-10 scroll-mt-16 sm:scroll-mt-20">
-      <div className="max-w-6xl mx-auto space-y-12">
+    <section id="contact" className="py-12 sm:py-16 px-4 sm:px-6 lg:px-8 relative z-10 scroll-mt-16 sm:scroll-mt-20 w-full max-w-full overflow-hidden">
+      <div className="max-w-6xl w-full mx-auto space-y-12">
         {/* Section Header */}
         <div className="flex flex-col items-center justify-center text-center gap-4 relative z-10 max-w-3xl mx-auto">
           <div className="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-xs font-mono">
@@ -233,7 +233,7 @@ export default function ContactSection() {
                         value={formData.name}
                         onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                         placeholder="Alex Vance"
-                        className="w-full px-4 py-3 rounded-xl bg-slate-900/80 border border-white/10 text-white text-xs sm:text-sm focus:outline-none focus:border-cyan-500 transition-colors"
+                        className="w-full px-4 py-3 rounded-xl bg-slate-900/80 border border-white/10 text-white text-[16px] sm:text-sm focus:outline-none focus:border-cyan-500 transition-colors"
                         required
                       />
                     </div>
@@ -245,7 +245,7 @@ export default function ContactSection() {
                         value={formData.email}
                         onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                         placeholder="alex@company.com"
-                        className="w-full px-4 py-3 rounded-xl bg-slate-900/80 border border-white/10 text-white text-xs sm:text-sm focus:outline-none focus:border-cyan-500 transition-colors"
+                        className="w-full px-4 py-3 rounded-xl bg-slate-900/80 border border-white/10 text-white text-[16px] sm:text-sm focus:outline-none focus:border-cyan-500 transition-colors"
                         required
                       />
                     </div>
@@ -257,7 +257,7 @@ export default function ContactSection() {
                       <select
                         value={formData.project_scope}
                         onChange={(e) => setFormData({ ...formData, project_scope: e.target.value })}
-                        className="w-full px-4 py-3 rounded-xl bg-slate-900/80 border border-white/10 text-white text-xs sm:text-sm focus:outline-none focus:border-cyan-500 transition-colors"
+                        className="w-full px-4 py-3 rounded-xl bg-slate-900/80 border border-white/10 text-white text-[16px] sm:text-sm focus:outline-none focus:border-cyan-500 transition-colors"
                       >
                         {scopeOptions.map((opt) => (
                           <option key={opt} value={opt} className="bg-slate-950 text-white">
@@ -272,7 +272,7 @@ export default function ContactSection() {
                       <select
                         value={formData.budget_range}
                         onChange={(e) => setFormData({ ...formData, budget_range: e.target.value })}
-                        className="w-full px-4 py-3 rounded-xl bg-slate-900/80 border border-white/10 text-white text-xs sm:text-sm focus:outline-none focus:border-cyan-500 transition-colors"
+                        className="w-full px-4 py-3 rounded-xl bg-slate-900/80 border border-white/10 text-white text-[16px] sm:text-sm focus:outline-none focus:border-cyan-500 transition-colors"
                       >
                         {budgetOptions.map((opt) => (
                           <option key={opt} value={opt} className="bg-slate-950 text-white">
@@ -290,7 +290,7 @@ export default function ContactSection() {
                       value={formData.message}
                       onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                       placeholder="Outline your application goals, target architecture, key deliverables, and preferred launch timeline..."
-                      className="w-full px-4 py-3 rounded-xl bg-slate-900/80 border border-white/10 text-white text-xs sm:text-sm focus:outline-none focus:border-cyan-500 transition-colors resize-none"
+                      className="w-full px-4 py-3 rounded-xl bg-slate-900/80 border border-white/10 text-white text-[16px] sm:text-sm focus:outline-none focus:border-cyan-500 transition-colors resize-none"
                       required
                     />
                   </div>
@@ -298,7 +298,7 @@ export default function ContactSection() {
                   <button
                     type="submit"
                     disabled={loading}
-                    className="w-full py-4 rounded-xl bg-gradient-to-r from-primary via-indigo-600 to-accent-cyan text-white font-semibold text-sm flex items-center justify-center space-x-2 shadow-lg shadow-primary/30 hover:shadow-neon-indigo transition-all disabled:opacity-50"
+                    className="w-full py-4 min-h-[44px] rounded-xl bg-gradient-to-r from-primary via-indigo-600 to-accent-cyan text-white font-semibold text-sm flex items-center justify-center space-x-2 shadow-lg shadow-primary/30 hover:shadow-neon-indigo transition-all disabled:opacity-50"
                   >
                     {loading ? (
                       <span className="font-mono text-xs animate-pulse">Transmitting Brief to API...</span>

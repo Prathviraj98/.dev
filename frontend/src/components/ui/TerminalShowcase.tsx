@@ -113,20 +113,19 @@ export default function TerminalShowcase() {
   return (
     <div className="w-full max-w-5xl mx-auto glass-panel rounded-2xl overflow-hidden border border-white/10 shadow-2xl">
       {/* Terminal Header Bar */}
-      <div className="px-4 py-3 bg-slate-950/80 border-b border-white/10 flex items-center justify-between">
-        <div className="flex items-center space-x-2">
+      <div className="px-3 sm:px-4 py-2.5 sm:py-3 bg-slate-950/80 border-b border-white/10 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+        <div className="flex items-center space-x-2 shrink-0">
           <div className="w-3 h-3 rounded-full bg-rose-500/80" />
           <div className="w-3 h-3 rounded-full bg-amber-500/80" />
           <div className="w-3 h-3 rounded-full bg-emerald-500/80" />
-          <span className="text-xs font-mono text-slate-400 ml-2 flex items-center gap-1.5">
-            <Terminal className="w-3.5 h-3.5 text-cyan-400" />
-            dotdev-architecture-lab -- bash
+          <span className="text-[11px] sm:text-xs font-mono text-slate-400 ml-1.5 flex items-center gap-1.5 truncate">
+            <Terminal className="w-3.5 h-3.5 text-cyan-400 shrink-0" />
+            <span className="truncate">dotdev-architecture-lab -- bash</span>
           </span>
-
         </div>
 
-        {/* Tab Selection buttons */}
-        <div className="flex items-center space-x-1">
+        {/* Tab Selection buttons (Horizontally scrollable on mobile) */}
+        <div className="flex items-center space-x-1 overflow-x-auto no-scrollbar max-w-full pb-0.5 sm:pb-0">
           {TABS.map((tab) => {
             const Icon = tab.icon;
             const isActive = tab.id === activeTabId;
@@ -134,7 +133,7 @@ export default function TerminalShowcase() {
               <button
                 key={tab.id}
                 onClick={() => setActiveTabId(tab.id)}
-                className={`flex items-center space-x-1.5 px-3 py-1 rounded-lg text-xs font-mono transition-all ${
+                className={`flex items-center space-x-1.5 px-2.5 sm:px-3 py-1 rounded-lg text-xs font-mono transition-all shrink-0 min-h-[36px] ${
                   isActive
                     ? 'bg-primary/20 text-cyan-300 border border-primary/40'
                     : 'text-slate-400 hover:text-slate-200 hover:bg-white/5'
@@ -149,26 +148,26 @@ export default function TerminalShowcase() {
       </div>
 
       {/* Code Editor Body */}
-      <div className="p-6 bg-slate-950/90 font-mono text-xs sm:text-sm text-slate-200 leading-relaxed overflow-x-auto relative min-h-[260px]">
-        <div className="absolute top-4 right-4 flex items-center space-x-2">
+      <div className="p-4 sm:p-6 bg-slate-950/90 font-mono text-[11px] xs:text-xs sm:text-sm text-slate-200 leading-relaxed overflow-x-auto relative min-h-[260px]">
+        <div className="flex sm:absolute sm:top-4 sm:right-4 items-center justify-end space-x-2 pb-3 sm:pb-0 z-10">
           <button
             onClick={handleRun}
             disabled={executing}
-            className="flex items-center space-x-1.5 px-3 py-1.5 rounded-lg bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 hover:bg-emerald-500/30 text-xs font-sans font-medium transition-all"
+            className="flex items-center space-x-1.5 px-3 py-1.5 rounded-lg bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 hover:bg-emerald-500/30 text-xs font-sans font-medium transition-all min-h-[36px]"
           >
             <Play className={`w-3.5 h-3.5 ${executing ? 'animate-spin' : ''}`} />
             <span>{executing ? 'Executing...' : 'Run Code'}</span>
           </button>
           <button
             onClick={handleCopy}
-            className="p-1.5 rounded-lg glass-card text-slate-400 hover:text-white transition-colors"
+            className="p-2 min-w-[36px] min-h-[36px] flex items-center justify-center rounded-lg glass-card text-slate-400 hover:text-white transition-colors"
             title="Copy Code"
           >
             {copied ? <Check className="w-4 h-4 text-emerald-400" /> : <Copy className="w-4 h-4" />}
           </button>
         </div>
 
-        <pre className="text-slate-300 font-mono select-text">
+        <pre className="text-slate-300 font-mono select-text pt-1 sm:pt-6 overflow-x-auto">
           <code>{activeTab.code}</code>
         </pre>
       </div>

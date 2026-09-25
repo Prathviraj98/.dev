@@ -37,8 +37,8 @@ export default function CapabilitiesSection() {
   ];
 
   return (
-    <section id="capabilities" className="py-12 sm:py-16 px-4 sm:px-6 lg:px-8 relative z-10 scroll-mt-16 sm:scroll-mt-20">
-      <div className="max-w-7xl mx-auto space-y-10 sm:space-y-12">
+    <section id="capabilities" className="py-12 sm:py-16 px-4 sm:px-6 lg:px-8 relative z-10 scroll-mt-16 sm:scroll-mt-20 w-full max-w-full overflow-hidden">
+      <div className="max-w-7xl w-full mx-auto space-y-10 sm:space-y-12">
         {/* Section Header */}
         <div className="flex flex-col items-center justify-center text-center gap-4 max-w-3xl mx-auto">
           <motion.div
@@ -83,7 +83,7 @@ export default function CapabilitiesSection() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
-                className="glass-card p-6 sm:p-8 rounded-2xl relative overflow-hidden group border border-white/5 hover:border-white/15"
+                className="glass-card p-4 xs:p-6 sm:p-8 rounded-2xl relative overflow-hidden group border border-white/5 hover:border-white/15"
               >
                 {/* Accent Background Glow */}
                 <div

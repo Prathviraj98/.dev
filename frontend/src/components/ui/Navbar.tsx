@@ -52,13 +52,13 @@ export default function Navbar() {
           {/* Brand Logo (.DEV text) */}
           <a
             href="#"
-            className="flex items-center space-x-2 group cursor-pointer focus:outline-none"
+            className="flex items-center space-x-2 group cursor-pointer focus:outline-none shrink-0"
           >
             <div className="flex flex-col">
-              <span className="text-2xl font-black tracking-tight text-white flex items-center">
+              <span className="text-xl sm:text-2xl font-black tracking-tight text-white flex items-center">
                 <span className="text-cyan-400 font-mono font-extrabold">.</span>DEV
               </span>
-              <span className="text-[10px] uppercase tracking-widest text-slate-400 font-mono flex items-center gap-1">
+              <span className="text-[9px] sm:text-[10px] uppercase tracking-widest text-slate-400 font-mono flex items-center gap-1">
                 <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
                 System Ready
               </span>
@@ -134,7 +134,7 @@ export default function Navbar() {
           <div className="flex md:hidden items-center space-x-2">
             <button
               onClick={cycleTimeMode}
-              className="p-2 rounded-xl text-slate-300 hover:text-white glass-panel focus:outline-none flex items-center gap-1"
+              className="p-2.5 min-w-[44px] min-h-[44px] justify-center rounded-xl text-slate-300 hover:text-white glass-panel focus:outline-none flex items-center gap-1"
               title="Cycle Space Time Theme"
             >
               {renderThemeIcon(timeMode)}
@@ -142,7 +142,7 @@ export default function Navbar() {
 
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="p-2 rounded-xl text-slate-300 hover:text-white glass-panel focus:outline-none"
+              className="p-2.5 min-w-[44px] min-h-[44px] flex items-center justify-center rounded-xl text-slate-300 hover:text-white glass-panel focus:outline-none"
               aria-label="Toggle Navigation Menu"
             >
               {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
@@ -159,7 +159,7 @@ export default function Navbar() {
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.2 }}
-            className="md:hidden glass-nav border-t border-white/10 mt-3 px-4 pt-4 pb-6 space-y-3"
+            className="md:hidden glass-nav border-t border-white/10 mt-3 px-4 pt-4 pb-6 space-y-3 max-h-[80vh] overflow-y-auto"
           >
             {navLinks.map((link) => {
               const Icon = link.icon;

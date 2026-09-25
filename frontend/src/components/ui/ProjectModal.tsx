@@ -52,7 +52,7 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
           className="relative w-full max-w-4xl max-h-[90vh] glass-panel rounded-3xl overflow-hidden border border-white/20 shadow-2xl z-10 flex flex-col my-auto"
         >
           {/* Modal Header Image & Title */}
-          <div className="relative h-64 sm:h-72 w-full overflow-hidden bg-slate-900">
+          <div className="relative h-44 xs:h-56 sm:h-72 w-full overflow-hidden bg-slate-900 shrink-0">
             <img
               src={project.image_url}
               alt={project.title}
@@ -66,27 +66,27 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
 
             <button
               onClick={onClose}
-              className="absolute top-4 right-4 p-2 rounded-full glass-card text-white hover:bg-white/20 transition-colors z-20"
+              className="absolute top-3.5 right-3.5 p-2.5 min-w-[44px] min-h-[44px] flex items-center justify-center rounded-full glass-card text-white hover:bg-white/20 transition-colors z-20"
               aria-label="Close modal"
             >
               <X className="w-5 h-5" />
             </button>
 
-            <div className="absolute bottom-6 left-6 right-6 space-y-2 z-10">
-              <span className="px-3 py-1 rounded-full text-xs font-mono bg-cyan-500/20 text-cyan-300 border border-cyan-500/40">
+            <div className="absolute bottom-4 left-4 right-4 sm:bottom-6 sm:left-6 sm:right-6 space-y-1.5 sm:space-y-2 z-10">
+              <span className="px-3 py-1 rounded-full text-[11px] sm:text-xs font-mono bg-cyan-500/20 text-cyan-300 border border-cyan-500/40 inline-block">
                 {project.category}
               </span>
-              <h2 className="text-2xl sm:text-4xl font-extrabold text-white">
+              <h2 className="text-xl xs:text-2xl sm:text-4xl font-extrabold text-white leading-tight">
                 {project.title}
               </h2>
-              <p className="text-cyan-400 font-mono text-sm sm:text-base font-medium">
+              <p className="text-cyan-400 font-mono text-xs sm:text-base font-medium truncate">
                 {project.tagline}
               </p>
             </div>
           </div>
 
           {/* Modal Body Content (Scrollable) */}
-          <div className="p-6 sm:p-8 space-y-8 overflow-y-auto max-h-[calc(90vh-18rem)]">
+          <div className="p-4 xs:p-6 sm:p-8 space-y-6 sm:space-y-8 overflow-y-auto max-h-[calc(85vh-11rem)] sm:max-h-[calc(90vh-18rem)]">
             {/* Key Performance Metrics Bar (Excludes Stars, Forks, Open Issues) */}
             {(() => {
               const displayMetrics = (project.key_metrics || []).filter(
@@ -94,13 +94,13 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
               );
               if (displayMetrics.length === 0) return null;
               return (
-                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 p-4 rounded-2xl bg-white/5 border border-white/10">
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4 p-3.5 sm:p-4 rounded-2xl bg-white/5 border border-white/10">
                   {displayMetrics.map((metric, idx) => (
-                    <div key={idx} className="flex flex-col items-center justify-center text-center p-2">
-                      <span className="text-2xl font-black font-mono text-emerald-400">
+                    <div key={idx} className="flex flex-col items-center justify-center text-center p-1.5 sm:p-2">
+                      <span className="text-xl sm:text-2xl font-black font-mono text-emerald-400">
                         {metric.value}
                       </span>
-                      <span className="text-xs text-slate-400 font-medium uppercase tracking-wider mt-1">
+                      <span className="text-[10px] sm:text-xs text-slate-400 font-medium uppercase tracking-wider mt-0.5 sm:mt-1">
                         {metric.label}
                       </span>
                     </div>
@@ -112,13 +112,13 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
 
             {/* Architecture Overview & Details */}
             <div className="space-y-4">
-              <h3 className="text-lg font-bold text-white flex items-center gap-2">
-                <Layers className="w-5 h-5 text-primary" />
+              <h3 className="text-base sm:text-lg font-bold text-white flex items-center gap-2">
+                <Layers className="w-5 h-5 text-primary shrink-0" />
                 <span>System Design & Architectural Breakdown</span>
               </h3>
-              <div className="prose prose-invert max-w-none text-slate-300 text-sm leading-relaxed font-sans space-y-3">
-                <p className="text-base text-slate-200">{project.summary}</p>
-                <div className="p-4 rounded-xl bg-slate-900/90 border border-white/10 font-mono text-xs text-slate-300 whitespace-pre-wrap leading-relaxed">
+              <div className="prose prose-invert max-w-none text-slate-300 text-xs sm:text-sm leading-relaxed font-sans space-y-3">
+                <p className="text-sm sm:text-base text-slate-200">{project.summary}</p>
+                <div className="p-3.5 sm:p-4 rounded-xl bg-slate-900/90 border border-white/10 font-mono text-[11px] sm:text-xs text-slate-300 whitespace-pre-wrap leading-relaxed overflow-x-auto">
                   {project.architecture_markdown}
                 </div>
               </div>

@@ -95,8 +95,8 @@ export default function ProjectGrid({ projects }: ProjectGridProps) {
   };
 
   return (
-    <section id="portfolio" className="py-12 sm:py-16 px-4 sm:px-6 lg:px-8 relative z-10 scroll-mt-16 sm:scroll-mt-20">
-      <div className="max-w-7xl mx-auto space-y-8 sm:space-y-10">
+    <section id="portfolio" className="py-12 sm:py-16 px-4 sm:px-6 lg:px-8 relative z-10 scroll-mt-16 sm:scroll-mt-20 w-full max-w-full overflow-hidden">
+      <div className="max-w-7xl w-full mx-auto space-y-8 sm:space-y-10">
         {/* Section Title Header */}
         <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6">
           <div className="space-y-3">
@@ -130,7 +130,7 @@ export default function ProjectGrid({ projects }: ProjectGridProps) {
             </div>
 
             {/* Category Filter Pills */}
-            <div className="flex flex-wrap items-center gap-1.5 glass-panel p-2 rounded-2xl border border-white/10 max-w-full">
+            <div className="flex items-center gap-1.5 glass-panel p-2 rounded-2xl border border-white/10 max-w-full overflow-x-auto no-scrollbar flex-nowrap sm:flex-wrap">
               {CATEGORIES.map((cat) => (
                 <button
                   key={cat}
@@ -138,7 +138,7 @@ export default function ProjectGrid({ projects }: ProjectGridProps) {
                     setSelectedCategory(cat);
                     setSelectedIndex(0);
                   }}
-                  className={`px-3.5 py-1.5 rounded-xl text-xs font-mono font-medium transition-all ${
+                  className={`px-3.5 py-1.5 rounded-xl text-xs font-mono font-medium transition-all shrink-0 min-h-[36px] ${
                     selectedCategory === cat
                       ? 'bg-cyan-500/20 text-cyan-300 border border-cyan-500/40 shadow-neon-cyan'
                       : 'text-slate-400 hover:text-white hover:bg-white/5'
@@ -161,11 +161,11 @@ export default function ProjectGrid({ projects }: ProjectGridProps) {
                 animate={{ opacity: 1, scale: 1, y: 0 }}
                 exit={{ opacity: 0, scale: 0.98, y: -15 }}
                 transition={{ duration: 0.35, ease: 'easeOut' }}
-                className="glass-panel rounded-3xl overflow-hidden border border-white/10 shadow-2xl relative min-h-[500px] lg:h-[480px]"
+                className="glass-panel rounded-3xl overflow-hidden border border-white/10 shadow-2xl relative min-h-none sm:min-h-[500px] lg:h-[480px]"
               >
                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-0 h-full">
                   {/* Left Thumbnail Banner */}
-                  <div className="lg:col-span-6 relative h-64 sm:h-72 lg:h-full min-h-[260px] overflow-hidden bg-slate-950">
+                  <div className="lg:col-span-6 relative h-48 xs:h-60 sm:h-72 lg:h-full min-h-0 sm:min-h-[260px] overflow-hidden bg-slate-950">
                     <img
                       src={currentProject.image_url}
                       alt={currentProject.title}
@@ -177,11 +177,11 @@ export default function ProjectGrid({ projects }: ProjectGridProps) {
                     <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/30 to-transparent lg:bg-gradient-to-r lg:from-transparent lg:via-slate-950/20 lg:to-slate-950" />
 
                     {/* Category Badge Pill */}
-                    <div className="absolute top-4 left-4 z-10 flex items-center gap-2">
+                    <div className="absolute top-4 left-4 z-10 flex items-center gap-2 flex-wrap">
                       <span className="px-3 py-1 rounded-full text-xs font-mono font-medium bg-slate-950/80 backdrop-blur-md text-cyan-300 border border-cyan-500/30">
                         {currentProject.category}
                       </span>
-                      <span className="px-2.5 py-1 rounded-full text-[10px] font-mono text-slate-300 bg-slate-900/80 border border-white/10">
+                      <span className="px-2.5 py-1 rounded-full text-[10px] font-mono text-slate-300 bg-slate-900/80 border border-white/10 hidden xs:inline-block">
                         ID: {currentProject.slug}
                       </span>
                     </div>
@@ -191,7 +191,7 @@ export default function ProjectGrid({ projects }: ProjectGridProps) {
                       <button
                         onClick={handlePrev}
                         disabled={filteredProjects.length <= 1}
-                        className="p-2.5 rounded-xl bg-slate-950/80 backdrop-blur-md hover:bg-cyan-500/20 text-white border border-white/20 hover:border-cyan-500/40 disabled:opacity-40 transition-colors"
+                        className="p-2.5 min-w-[44px] min-h-[44px] flex items-center justify-center rounded-xl bg-slate-950/80 backdrop-blur-md hover:bg-cyan-500/20 text-white border border-white/20 hover:border-cyan-500/40 disabled:opacity-40 transition-colors"
                         title="Previous Project"
                       >
                         <ChevronLeft className="w-4 h-4" />
@@ -199,7 +199,7 @@ export default function ProjectGrid({ projects }: ProjectGridProps) {
                       <button
                         onClick={handleNext}
                         disabled={filteredProjects.length <= 1}
-                        className="p-2.5 rounded-xl bg-slate-950/80 backdrop-blur-md hover:bg-cyan-500/20 text-white border border-white/20 hover:border-cyan-500/40 disabled:opacity-40 transition-colors"
+                        className="p-2.5 min-w-[44px] min-h-[44px] flex items-center justify-center rounded-xl bg-slate-950/80 backdrop-blur-md hover:bg-cyan-500/20 text-white border border-white/20 hover:border-cyan-500/40 disabled:opacity-40 transition-colors"
                         title="Next Project"
                       >
                         <ChevronRight className="w-4 h-4" />
@@ -208,14 +208,14 @@ export default function ProjectGrid({ projects }: ProjectGridProps) {
                   </div>
 
                   {/* Right Content Specs Panel (Uniform Height Layout) */}
-                  <div className="lg:col-span-6 p-6 sm:p-8 flex flex-col justify-between h-full space-y-4 overflow-hidden">
+                  <div className="lg:col-span-6 p-4 xs:p-6 sm:p-8 flex flex-col justify-between h-full space-y-4 overflow-hidden">
                     <div className="space-y-2">
                       <div className="flex items-center space-x-2 text-xs font-mono text-cyan-400">
                         <Sparkles className="w-4 h-4 text-cyan-400 shrink-0" />
                         <span className="truncate">{currentProject.tagline}</span>
                       </div>
 
-                      <h3 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight line-clamp-1">
+                      <h3 className="text-xl xs:text-2xl sm:text-3xl font-extrabold text-white tracking-tight line-clamp-1">
                         {currentProject.title}
                       </h3>
 
@@ -225,7 +225,7 @@ export default function ProjectGrid({ projects }: ProjectGridProps) {
                     </div>
 
                     {/* Key Metrics Breakdown (Uniform Slot Height) */}
-                    <div className="h-16 flex items-center">
+                    <div className="min-h-[56px] sm:h-16 flex items-center">
                       {(() => {
                         const displayMetrics = (currentProject.key_metrics || []).filter(
                           (m) => !['stars', 'forks', 'open issues'].includes(m.label.toLowerCase())
@@ -239,13 +239,13 @@ export default function ProjectGrid({ projects }: ProjectGridProps) {
                           );
                         }
                         return (
-                          <div className="w-full grid grid-cols-3 gap-2 py-2 px-3 bg-white/5 rounded-2xl border border-white/10">
+                          <div className="w-full grid grid-cols-3 gap-1.5 sm:gap-2 py-2 px-2.5 sm:px-3 bg-white/5 rounded-2xl border border-white/10">
                             {displayMetrics.slice(0, 3).map((metric, idx) => (
                               <div key={idx} className="text-center">
                                 <span className="block text-xs sm:text-sm font-extrabold font-mono text-cyan-300 truncate">
                                   {metric.value}
                                 </span>
-                                <span className="block text-[10px] text-slate-400 truncate">
+                                <span className="block text-[9px] sm:text-[10px] text-slate-400 truncate">
                                   {metric.label}
                                 </span>
                               </div>
@@ -276,7 +276,7 @@ export default function ProjectGrid({ projects }: ProjectGridProps) {
                     <div className="flex flex-wrap items-center gap-3 pt-2 border-t border-white/10">
                       <button
                         onClick={() => setActiveProject(currentProject)}
-                        className="w-full sm:w-auto px-5 py-2.5 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 text-white font-mono text-xs font-semibold flex items-center justify-center space-x-2 shadow-neon-cyan hover:brightness-110 transition-all transform hover:-translate-y-0.5"
+                        className="w-full sm:w-auto px-5 py-3 min-h-[44px] rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 text-white font-mono text-xs font-semibold flex items-center justify-center space-x-2 shadow-neon-cyan hover:brightness-110 transition-all transform hover:-translate-y-0.5"
                       >
                         <Maximize2 className="w-3.5 h-3.5" />
                         <span>Inspect Architecture & Specs</span>
@@ -288,7 +288,7 @@ export default function ProjectGrid({ projects }: ProjectGridProps) {
             </AnimatePresence>
 
             {/* 🖥️ macOS Interactive Floating Dock Bar */}
-            <div className="pt-4 flex flex-col items-center justify-center space-y-2">
+            <div className="pt-4 flex flex-col items-center justify-center space-y-2 max-w-full">
               <div className="flex items-center space-x-2 text-xs font-mono text-slate-400 mb-1 select-none">
                 <span>PROJECT DOCK</span>
                 <span className="text-slate-600">•</span>
@@ -297,8 +297,8 @@ export default function ProjectGrid({ projects }: ProjectGridProps) {
                 </span>
               </div>
 
-              {/* Floating Dock Container */}
-              <div className="glass-panel px-4 py-3 rounded-3xl border border-white/15 flex items-center space-x-2 sm:space-x-3 shadow-2xl relative backdrop-blur-2xl">
+              {/* Floating Dock Container (Horizontally Scrollable on Mobile) */}
+              <div className="glass-panel px-3 sm:px-4 py-2.5 sm:py-3 rounded-3xl border border-white/15 flex items-center space-x-2 sm:space-x-3 shadow-2xl relative backdrop-blur-2xl max-w-full overflow-x-auto no-scrollbar scroll-smooth">
                 {filteredProjects.map((project, idx) => {
                   const { icon: Icon, accent, border, glow } = getProjectIcon(project);
                   const isSelected = selectedIndex === idx;
@@ -317,7 +317,7 @@ export default function ProjectGrid({ projects }: ProjectGridProps) {
                   return (
                     <div
                       key={project.id || project.slug}
-                      className="relative group flex flex-col items-center"
+                      className="relative group flex flex-col items-center shrink-0"
                     >
                       {/* Hover Tooltip Label */}
                       <AnimatePresence>
@@ -326,7 +326,7 @@ export default function ProjectGrid({ projects }: ProjectGridProps) {
                             initial={{ opacity: 0, y: 10, scale: 0.9 }}
                             animate={{ opacity: 1, y: 0, scale: 1 }}
                             exit={{ opacity: 0, y: 5, scale: 0.9 }}
-                            className="absolute -top-11 left-1/2 -translate-x-1/2 whitespace-nowrap px-3 py-1 rounded-xl bg-slate-950/90 backdrop-blur-md text-white border border-white/20 text-[11px] font-mono shadow-xl pointer-events-none z-30"
+                            className="absolute -top-11 left-1/2 -translate-x-1/2 whitespace-nowrap px-3 py-1 rounded-xl bg-slate-950/90 backdrop-blur-md text-white border border-white/20 text-[11px] font-mono shadow-xl pointer-events-none z-30 hidden sm:block"
                           >
                             <span className="text-cyan-400 font-bold">{project.title}</span>
                           </motion.div>
@@ -339,7 +339,7 @@ export default function ProjectGrid({ projects }: ProjectGridProps) {
                         onMouseEnter={() => setHoveredDockIndex(idx)}
                         onMouseLeave={() => setHoveredDockIndex(null)}
                         style={{ transform: `scale(${scale})` }}
-                        className={`w-11 h-11 sm:w-13 sm:h-13 rounded-2xl flex items-center justify-center transition-all duration-200 relative ${
+                        className={`w-11 h-11 sm:w-13 sm:h-13 min-w-[44px] min-h-[44px] rounded-2xl flex items-center justify-center transition-all duration-200 relative shrink-0 ${
                           isSelected
                             ? `bg-gradient-to-br ${accent} text-white border ${border} ${glow}`
                             : 'bg-slate-900/90 text-slate-300 border border-white/10 hover:border-white/30 hover:bg-slate-800/90'

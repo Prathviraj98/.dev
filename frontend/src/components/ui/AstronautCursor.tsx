@@ -32,8 +32,14 @@ export default function AstronautCursor() {
   const animFrameId = useRef<number | null>(null);
 
   useEffect(() => {
-    // Hide custom astronaut cursor on touch devices
-    if (typeof window === 'undefined' || window.matchMedia('(pointer: coarse)').matches) {
+    // Hide custom astronaut cursor on touch devices and mobile/tablet screens
+    if (
+      typeof window === 'undefined' ||
+      window.matchMedia('(pointer: coarse)').matches ||
+      'ontouchstart' in window ||
+      window.innerWidth < 768
+    ) {
+      setIsVisible(false);
       return;
     }
 

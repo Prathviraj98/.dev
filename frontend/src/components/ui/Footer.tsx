@@ -4,8 +4,8 @@ import { Terminal, Github, Twitter, Linkedin, Heart, Shield } from 'lucide-react
 
 export default function Footer() {
   return (
-    <footer className="relative z-10 border-t border-white/10 glass-nav py-12 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
+    <footer className="relative z-10 border-t border-white/10 glass-nav py-12 px-4 sm:px-6 lg:px-8 w-full max-w-full overflow-hidden">
+      <div className="max-w-7xl w-full mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
         {/* Brand & System Status */}
         <div className="flex flex-col items-center md:items-start space-y-2">
           <div className="flex items-center space-x-2">
