@@ -288,21 +288,31 @@ export default function ProjectGrid({ projects }: ProjectGridProps) {
             </AnimatePresence>
 
             {/* 🖥️ macOS Interactive Floating Dock Bar */}
-            <div className="pt-4 flex flex-col items-center justify-center space-y-2 max-w-full">
-              <div className="flex items-center space-x-2 text-xs font-mono text-slate-400 mb-1 select-none">
-                <span>PROJECT DOCK</span>
-                <span className="text-slate-600">•</span>
-                <span className="text-cyan-400">
+            <div className="pt-4 flex flex-col items-center justify-center space-y-2.5 max-w-full">
+              {/* Header Status & Mobile Touch Swipe Hint */}
+              <div className="flex items-center justify-between w-full max-w-md px-2 text-xs font-mono text-slate-400 select-none">
+                <span className="hidden sm:inline text-slate-400">PROJECT DOCK</span>
+                <span className="sm:hidden text-cyan-400 font-semibold flex items-center gap-1">
+                  <ChevronLeft className="w-3.5 h-3.5 animate-pulse" />
+                  <span>Swipe or tap dock</span>
+                </span>
+                <span className="text-slate-600 hidden sm:inline">•</span>
+                <span className="text-cyan-400 font-bold">
                   {selectedIndex + 1} of {filteredProjects.length} docked
+                </span>
+                <span className="sm:hidden text-cyan-400 font-semibold flex items-center gap-1">
+                  <span>Swipe</span>
+                  <ChevronRight className="w-3.5 h-3.5 animate-pulse" />
                 </span>
               </div>
 
-              {/* Floating Dock Container (Horizontally Scrollable on Mobile) */}
-              <div className="glass-panel px-3 sm:px-4 py-2.5 sm:py-3 rounded-3xl border border-white/15 flex items-center space-x-2 sm:space-x-3 shadow-2xl relative backdrop-blur-2xl max-w-full overflow-x-auto no-scrollbar scroll-smooth">
+              {/* Floating Dock Container (Horizontally Touch-Scrollable with Snap) */}
+              <div className="glass-panel px-3 sm:px-4 py-2.5 sm:py-3 rounded-3xl border border-white/15 flex items-center space-x-2.5 sm:space-x-3 shadow-2xl relative backdrop-blur-2xl max-w-full overflow-x-auto no-scrollbar snap-x snap-mandatory scroll-smooth">
                 {filteredProjects.map((project, idx) => {
                   const { icon: Icon, accent, border, glow } = getProjectIcon(project);
                   const isSelected = selectedIndex === idx;
                   const isHovered = hoveredDockIndex === idx;
+                  const shortTitle = project.title.split(' ')[0];
 
                   // macOS magnification scale math
                   let scale = 1;
@@ -311,15 +321,15 @@ export default function ProjectGrid({ projects }: ProjectGridProps) {
                     if (distance === 0) scale = 1.35;
                     else if (distance === 1) scale = 1.15;
                   } else if (isSelected) {
-                    scale = 1.12;
+                    scale = 1.08;
                   }
 
                   return (
                     <div
                       key={project.id || project.slug}
-                      className="relative group flex flex-col items-center shrink-0"
+                      className="relative group flex flex-col items-center shrink-0 snap-center px-1"
                     >
-                      {/* Hover Tooltip Label */}
+                      {/* Hover Tooltip Label (Desktop sm+) */}
                       <AnimatePresence>
                         {isHovered && (
                           <motion.div
@@ -354,8 +364,17 @@ export default function ProjectGrid({ projects }: ProjectGridProps) {
                         )}
                       </button>
 
+                      {/* Compact Title Label under Icon on Mobile screens */}
+                      <span
+                        className={`text-[9px] font-mono font-medium truncate max-w-[54px] text-center mt-1 sm:hidden transition-colors ${
+                          isSelected ? 'text-cyan-300 font-bold' : 'text-slate-400'
+                        }`}
+                      >
+                        {shortTitle}
+                      </span>
+
                       {/* macOS Active LED Indicator Dot */}
-                      <div className="h-2 flex items-center justify-center mt-1">
+                      <div className="h-2 flex items-center justify-center mt-0.5 sm:mt-1">
                         {isSelected ? (
                           <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 shadow-neon-cyan animate-pulse" />
                         ) : (
