@@ -1,25 +1,15 @@
 'use client';
 
-import { useState, useMemo, useEffect, useRef } from 'react';
+import { useState, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
   Briefcase,
   Search,
   Sparkles,
-  Cpu,
-  ShieldCheck,
-  Smartphone,
-  Server,
-  Activity,
-  ChevronLeft,
-  ChevronRight,
-  ArrowUpRight,
-  Maximize2,
-  Code2,
-  ExternalLink,
-  Github,
+  Layers,
 } from 'lucide-react';
 import { Project } from '@/types';
+import ProjectCard from './ProjectCard';
 import ProjectModal from './ProjectModal';
 
 interface ProjectGridProps {
@@ -35,31 +25,10 @@ const CATEGORIES = [
   'IoT & Hardware',
 ];
 
-function getProjectIcon(project: Project) {
-  const cat = (project.category || '').toLowerCase();
-  const title = (project.title || '').toLowerCase();
-
-  if (cat.includes('ai') || title.includes('symbot') || title.includes('kaes') || title.includes('mouse')) {
-    return { icon: Cpu, accent: 'from-cyan-500 to-blue-600', border: 'border-cyan-500/40', glow: 'shadow-neon-cyan' };
-  }
-  if (cat.includes('crypto') || title.includes('spam') || title.includes('shield')) {
-    return { icon: ShieldCheck, accent: 'from-emerald-500 to-teal-600', border: 'border-emerald-500/40', glow: 'shadow-[0_0_20px_rgba(16,185,129,0.35)]' };
-  }
-  if (cat.includes('mobile') || title.includes('flutter') || title.includes('anvesana')) {
-    return { icon: Smartphone, accent: 'from-purple-500 to-pink-600', border: 'border-purple-500/40', glow: 'shadow-[0_0_20px_rgba(168,85,247,0.35)]' };
-  }
-  if (cat.includes('iot') || title.includes('medical') || title.includes('sensor')) {
-    return { icon: Activity, accent: 'from-amber-500 to-rose-600', border: 'border-amber-500/40', glow: 'shadow-[0_0_20px_rgba(245,158,11,0.35)]' };
-  }
-  return { icon: Server, accent: 'from-indigo-500 to-cyan-600', border: 'border-indigo-500/40', glow: 'shadow-neon-indigo' };
-}
-
 export default function ProjectGrid({ projects }: ProjectGridProps) {
   const [selectedCategory, setSelectedCategory] = useState('All');
   const [searchQuery, setSearchQuery] = useState('');
   const [activeProject, setActiveProject] = useState<Project | null>(null);
-  const [selectedIndex, setSelectedIndex] = useState(0);
-  const [hoveredDockIndex, setHoveredDockIndex] = useState<number | null>(null);
 
   const filteredProjects = useMemo(() => {
     return projects.filter((p) => {
@@ -75,57 +44,40 @@ export default function ProjectGrid({ projects }: ProjectGridProps) {
     });
   }, [projects, selectedCategory, searchQuery]);
 
-  // Keep selected index within bounds when filters change
-  useEffect(() => {
-    if (selectedIndex >= filteredProjects.length) {
-      setSelectedIndex(Math.max(0, filteredProjects.length - 1));
-    }
-  }, [filteredProjects.length, selectedIndex]);
-
-  const currentProject = filteredProjects[selectedIndex] || filteredProjects[0] || null;
-
-  const handleNext = () => {
-    if (filteredProjects.length <= 1) return;
-    setSelectedIndex((prev) => (prev + 1) % filteredProjects.length);
-  };
-
-  const handlePrev = () => {
-    if (filteredProjects.length <= 1) return;
-    setSelectedIndex((prev) => (prev - 1 + filteredProjects.length) % filteredProjects.length);
-  };
-
   return (
-    <section id="portfolio" className="py-12 sm:py-16 px-4 sm:px-6 lg:px-8 relative z-10 scroll-mt-16 sm:scroll-mt-20 w-full max-w-full overflow-hidden">
-      <div className="max-w-7xl w-full mx-auto space-y-8 sm:space-y-10">
+    <section
+      id="portfolio"
+      className="py-12 sm:py-20 px-4 sm:px-6 lg:px-8 relative z-10 scroll-mt-16 sm:scroll-mt-20 w-full max-w-full overflow-hidden text-slate-100"
+    >
+      <div className="max-w-7xl w-full mx-auto space-y-8 sm:space-y-12">
         {/* Section Title Header */}
         <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6">
-          <div className="space-y-3">
+          <div className="space-y-3 max-w-2xl">
             <div className="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 text-xs font-mono">
               <Briefcase className="w-3.5 h-3.5" />
-              <span>FEATURED ENGINEERING WORK</span>
+              <span>PRODUCTION ARCHITECTURES</span>
             </div>
+
             <h2 className="text-3xl sm:text-5xl font-extrabold text-white tracking-tight">
-              Interactive <span className="text-gradient-cyan">Project Dock</span>
+              Featured <span className="text-gradient-cyan">Engineering Work</span>
             </h2>
-            <p className="text-slate-400 text-sm max-w-xl">
-              Dock into production deployments, AI pipelines, cryptographic engines, and microservices. Hover & click dock items to inspect live specs.
+
+            <p className="text-slate-400 text-sm leading-relaxed">
+              Explore production deployments, AI pipelines, cryptographic engines, and microservices. Click any project card to inspect live architectural specifications and performance metrics.
             </p>
           </div>
 
-          {/* Category Filter Pills & Live Search Input */}
-          <div className="space-y-3">
-            {/* Search Bar */}
+          {/* Search & Category Filter Controls */}
+          <div className="space-y-3 w-full lg:w-auto">
+            {/* Search Input */}
             <div className="relative">
               <Search className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
               <input
                 type="text"
                 value={searchQuery}
-                onChange={(e) => {
-                  setSearchQuery(e.target.value);
-                  setSelectedIndex(0);
-                }}
-                placeholder="Search projects, technologies (e.g. PyTorch, FastAPI)..."
-                className="w-full sm:w-80 pl-10 pr-4 py-2 rounded-xl bg-slate-900/80 border border-white/10 text-xs text-white placeholder-slate-400 focus:outline-none focus:border-cyan-500 transition-colors"
+                onChange={(e) => setSearchQuery(e.target.value)}
+                placeholder="Search projects, tech (e.g. PyTorch, FastAPI)..."
+                className="w-full sm:w-80 pl-10 pr-4 py-2.5 rounded-xl bg-slate-900/90 border border-white/10 text-xs font-mono text-white placeholder-slate-400 focus:outline-none focus:border-cyan-500 transition-colors"
               />
             </div>
 
@@ -134,10 +86,7 @@ export default function ProjectGrid({ projects }: ProjectGridProps) {
               {CATEGORIES.map((cat) => (
                 <button
                   key={cat}
-                  onClick={() => {
-                    setSelectedCategory(cat);
-                    setSelectedIndex(0);
-                  }}
+                  onClick={() => setSelectedCategory(cat)}
                   className={`px-3.5 py-1.5 rounded-xl text-xs font-mono font-medium transition-all shrink-0 min-h-[36px] ${
                     selectedCategory === cat
                       ? 'bg-cyan-500/20 text-cyan-300 border border-cyan-500/40 shadow-neon-cyan'
@@ -151,250 +100,49 @@ export default function ProjectGrid({ projects }: ProjectGridProps) {
           </div>
         </div>
 
-        {/* 🚀 Main Project Stage Showcase Container */}
-        {currentProject ? (
-          <div className="space-y-6">
-            <AnimatePresence mode="wait">
-              <motion.div
-                key={currentProject.id || currentProject.slug}
-                initial={{ opacity: 0, scale: 0.98, y: 15 }}
-                animate={{ opacity: 1, scale: 1, y: 0 }}
-                exit={{ opacity: 0, scale: 0.98, y: -15 }}
-                transition={{ duration: 0.35, ease: 'easeOut' }}
-                className="glass-panel rounded-3xl overflow-hidden border border-white/10 shadow-2xl relative min-h-none sm:min-h-[500px] lg:h-[480px]"
-              >
-                <div className="grid grid-cols-1 lg:grid-cols-12 gap-0 h-full">
-                  {/* Left Thumbnail Banner */}
-                  <div className="lg:col-span-6 relative h-48 xs:h-60 sm:h-72 lg:h-full min-h-0 sm:min-h-[260px] overflow-hidden bg-slate-950">
-                    <img
-                      src={currentProject.image_url}
-                      alt={currentProject.title}
-                      onError={(e) => {
-                        (e.target as HTMLImageElement).src = 'https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&w=1200&q=80';
-                      }}
-                      className="w-full h-full object-cover object-center opacity-85 hover:scale-105 transition-transform duration-700"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/30 to-transparent lg:bg-gradient-to-r lg:from-transparent lg:via-slate-950/20 lg:to-slate-950" />
-
-                    {/* Category Badge Pill */}
-                    <div className="absolute top-4 left-4 z-10 flex items-center gap-2 flex-wrap">
-                      <span className="px-3 py-1 rounded-full text-xs font-mono font-medium bg-slate-950/80 backdrop-blur-md text-cyan-300 border border-cyan-500/30">
-                        {currentProject.category}
-                      </span>
-                      <span className="px-2.5 py-1 rounded-full text-[10px] font-mono text-slate-300 bg-slate-900/80 border border-white/10 hidden xs:inline-block">
-                        ID: {currentProject.slug}
-                      </span>
-                    </div>
-
-                    {/* Prev / Next Stage Nav Buttons */}
-                    <div className="absolute bottom-4 right-4 z-20 flex items-center space-x-2">
-                      <button
-                        onClick={handlePrev}
-                        disabled={filteredProjects.length <= 1}
-                        className="p-2.5 min-w-[44px] min-h-[44px] flex items-center justify-center rounded-xl bg-slate-950/80 backdrop-blur-md hover:bg-cyan-500/20 text-white border border-white/20 hover:border-cyan-500/40 disabled:opacity-40 transition-colors"
-                        title="Previous Project"
-                      >
-                        <ChevronLeft className="w-4 h-4" />
-                      </button>
-                      <button
-                        onClick={handleNext}
-                        disabled={filteredProjects.length <= 1}
-                        className="p-2.5 min-w-[44px] min-h-[44px] flex items-center justify-center rounded-xl bg-slate-950/80 backdrop-blur-md hover:bg-cyan-500/20 text-white border border-white/20 hover:border-cyan-500/40 disabled:opacity-40 transition-colors"
-                        title="Next Project"
-                      >
-                        <ChevronRight className="w-4 h-4" />
-                      </button>
-                    </div>
-                  </div>
-
-                  {/* Right Content Specs Panel (Uniform Height Layout) */}
-                  <div className="lg:col-span-6 p-4 xs:p-6 sm:p-8 flex flex-col justify-between h-full space-y-4 overflow-hidden">
-                    <div className="space-y-2">
-                      <div className="flex items-center space-x-2 text-xs font-mono text-cyan-400">
-                        <Sparkles className="w-4 h-4 text-cyan-400 shrink-0" />
-                        <span className="truncate">{currentProject.tagline}</span>
-                      </div>
-
-                      <h3 className="text-xl xs:text-2xl sm:text-3xl font-extrabold text-white tracking-tight line-clamp-1">
-                        {currentProject.title}
-                      </h3>
-
-                      <p className="text-slate-300 text-xs sm:text-sm line-clamp-3 leading-relaxed">
-                        {currentProject.summary}
-                      </p>
-                    </div>
-
-                    {/* Key Metrics Breakdown (Uniform Slot Height) */}
-                    <div className="min-h-[56px] sm:h-16 flex items-center">
-                      {(() => {
-                        const displayMetrics = (currentProject.key_metrics || []).filter(
-                          (m) => !['stars', 'forks', 'open issues'].includes(m.label.toLowerCase())
-                        );
-                        if (displayMetrics.length === 0) {
-                          return (
-                            <div className="w-full py-2.5 px-4 bg-white/5 rounded-2xl border border-white/10 flex items-center justify-between text-xs font-mono text-slate-400">
-                              <span>Architecture Verified</span>
-                              <span className="text-cyan-400 font-bold">100% Production Ready</span>
-                            </div>
-                          );
-                        }
-                        return (
-                          <div className="w-full grid grid-cols-3 gap-1.5 sm:gap-2 py-2 px-2.5 sm:px-3 bg-white/5 rounded-2xl border border-white/10">
-                            {displayMetrics.slice(0, 3).map((metric, idx) => (
-                              <div key={idx} className="text-center">
-                                <span className="block text-xs sm:text-sm font-extrabold font-mono text-cyan-300 truncate">
-                                  {metric.value}
-                                </span>
-                                <span className="block text-[9px] sm:text-[10px] text-slate-400 truncate">
-                                  {metric.label}
-                                </span>
-                              </div>
-                            ))}
-                          </div>
-                        );
-                      })()}
-                    </div>
-
-                    {/* Tech Stack Chips */}
-                    <div className="space-y-1.5">
-                      <span className="text-[10px] font-mono text-slate-400 uppercase tracking-wider block">
-                        ARCHITECTURE & TECH STACK
-                      </span>
-                      <div className="flex flex-wrap gap-1.5 max-h-20 overflow-y-auto">
-                        {currentProject.tech_stack.map((tech) => (
-                          <span
-                            key={tech}
-                            className="px-2.5 py-1 rounded-lg bg-white/5 border border-white/10 text-[11px] font-mono text-slate-200 hover:border-cyan-500/30 hover:text-cyan-300 transition-colors"
-                          >
-                            {tech}
-                          </span>
-                        ))}
-                      </div>
-                    </div>
-
-                    {/* Action CTA Buttons */}
-                    <div className="flex flex-wrap items-center gap-3 pt-2 border-t border-white/10">
-                      <button
-                        onClick={() => setActiveProject(currentProject)}
-                        className="w-full sm:w-auto px-5 py-3 min-h-[44px] rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 text-white font-mono text-xs font-semibold flex items-center justify-center space-x-2 shadow-neon-cyan hover:brightness-110 transition-all transform hover:-translate-y-0.5"
-                      >
-                        <Maximize2 className="w-3.5 h-3.5" />
-                        <span>Inspect Architecture & Specs</span>
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              </motion.div>
-            </AnimatePresence>
-
-            {/* 🖥️ macOS Interactive Floating Dock Bar */}
-            <div className="pt-4 flex flex-col items-center justify-center space-y-2.5 max-w-full">
-              {/* Header Status & Mobile Touch Swipe Hint */}
-              <div className="flex items-center justify-between w-full max-w-md px-2 text-xs font-mono text-slate-400 select-none">
-                <span className="hidden sm:inline text-slate-400">PROJECT DOCK</span>
-                <span className="sm:hidden text-cyan-400 font-semibold flex items-center gap-1">
-                  <ChevronLeft className="w-3.5 h-3.5 animate-pulse" />
-                  <span>Swipe or tap dock</span>
-                </span>
-                <span className="text-slate-600 hidden sm:inline">•</span>
-                <span className="text-cyan-400 font-bold">
-                  {selectedIndex + 1} of {filteredProjects.length} docked
-                </span>
-                <span className="sm:hidden text-cyan-400 font-semibold flex items-center gap-1">
-                  <span>Swipe</span>
-                  <ChevronRight className="w-3.5 h-3.5 animate-pulse" />
-                </span>
-              </div>
-
-              {/* Floating Dock Container (Horizontally Touch-Scrollable with Snap) */}
-              <div className="glass-panel px-3 sm:px-4 py-2.5 sm:py-3 rounded-3xl border border-white/15 flex items-center space-x-2.5 sm:space-x-3 shadow-2xl relative backdrop-blur-2xl max-w-full overflow-x-auto no-scrollbar snap-x snap-mandatory scroll-smooth">
-                {filteredProjects.map((project, idx) => {
-                  const { icon: Icon, accent, border, glow } = getProjectIcon(project);
-                  const isSelected = selectedIndex === idx;
-                  const isHovered = hoveredDockIndex === idx;
-                  const shortTitle = project.title.split(' ')[0];
-
-                  // macOS magnification scale math
-                  let scale = 1;
-                  if (hoveredDockIndex !== null) {
-                    const distance = Math.abs(hoveredDockIndex - idx);
-                    if (distance === 0) scale = 1.35;
-                    else if (distance === 1) scale = 1.15;
-                  } else if (isSelected) {
-                    scale = 1.08;
-                  }
-
-                  return (
-                    <div
-                      key={project.id || project.slug}
-                      className="relative group flex flex-col items-center shrink-0 snap-center px-1"
-                    >
-                      {/* Hover Tooltip Label (Desktop sm+) */}
-                      <AnimatePresence>
-                        {isHovered && (
-                          <motion.div
-                            initial={{ opacity: 0, y: 10, scale: 0.9 }}
-                            animate={{ opacity: 1, y: 0, scale: 1 }}
-                            exit={{ opacity: 0, y: 5, scale: 0.9 }}
-                            className="absolute -top-11 left-1/2 -translate-x-1/2 whitespace-nowrap px-3 py-1 rounded-xl bg-slate-950/90 backdrop-blur-md text-white border border-white/20 text-[11px] font-mono shadow-xl pointer-events-none z-30 hidden sm:block"
-                          >
-                            <span className="text-cyan-400 font-bold">{project.title}</span>
-                          </motion.div>
-                        )}
-                      </AnimatePresence>
-
-                      {/* Dock Icon Button */}
-                      <button
-                        onClick={() => setSelectedIndex(idx)}
-                        onMouseEnter={() => setHoveredDockIndex(idx)}
-                        onMouseLeave={() => setHoveredDockIndex(null)}
-                        style={{ transform: `scale(${scale})` }}
-                        className={`w-11 h-11 sm:w-13 sm:h-13 min-w-[44px] min-h-[44px] rounded-2xl flex items-center justify-center transition-all duration-200 relative shrink-0 ${
-                          isSelected
-                            ? `bg-gradient-to-br ${accent} text-white border ${border} ${glow}`
-                            : 'bg-slate-900/90 text-slate-300 border border-white/10 hover:border-white/30 hover:bg-slate-800/90'
-                        }`}
-                        aria-label={project.title}
-                      >
-                        <Icon className="w-5 h-5 sm:w-6 sm:h-6" />
-
-                        {/* Active Dock Pulse Glow */}
-                        {isSelected && (
-                          <span className="absolute inset-0 rounded-2xl bg-white/20 animate-ping opacity-25" />
-                        )}
-                      </button>
-
-                      {/* Compact Title Label under Icon on Mobile screens */}
-                      <span
-                        className={`text-[9px] font-mono font-medium truncate max-w-[54px] text-center mt-1 sm:hidden transition-colors ${
-                          isSelected ? 'text-cyan-300 font-bold' : 'text-slate-400'
-                        }`}
-                      >
-                        {shortTitle}
-                      </span>
-
-                      {/* macOS Active LED Indicator Dot */}
-                      <div className="h-2 flex items-center justify-center mt-0.5 sm:mt-1">
-                        {isSelected ? (
-                          <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 shadow-neon-cyan animate-pulse" />
-                        ) : (
-                          <span className="w-1 h-1 rounded-full bg-white/10 group-hover:bg-white/40 transition-colors" />
-                        )}
-                      </div>
-                    </div>
-                  );
-                })}
-              </div>
-            </div>
+        {/* Results Counter Bar */}
+        <div className="flex items-center justify-between text-xs font-mono text-slate-400 border-b border-white/10 pb-4">
+          <div className="flex items-center space-x-2">
+            <Sparkles className="w-3.5 h-3.5 text-cyan-400" />
+            <span>
+              Showing <strong className="text-cyan-300">{filteredProjects.length}</strong> engineering projects
+            </span>
           </div>
-        ) : (
-          <div className="glass-panel p-12 rounded-3xl text-center space-y-3 border border-white/10">
-            <p className="text-slate-300 text-sm font-mono">No engineering projects found matching your search.</p>
+          {(selectedCategory !== 'All' || searchQuery) && (
             <button
               onClick={() => {
                 setSelectedCategory('All');
                 setSearchQuery('');
-                setSelectedIndex(0);
+              }}
+              className="text-rose-400 hover:underline text-[11px] font-bold"
+            >
+              Reset Filters
+            </button>
+          )}
+        </div>
+
+        {/* Projects Grid Display */}
+        {filteredProjects.length > 0 ? (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {filteredProjects.map((project, index) => (
+              <ProjectCard
+                key={project.id || project.slug}
+                project={project}
+                index={index}
+                onSelect={(p) => setActiveProject(p)}
+                defaultMinimized={index > 0}
+              />
+            ))}
+          </div>
+        ) : (
+          <div className="glass-panel p-12 rounded-3xl text-center space-y-3 border border-white/10">
+            <p className="text-slate-300 text-sm font-mono">
+              No engineering projects found matching your search.
+            </p>
+            <button
+              onClick={() => {
+                setSelectedCategory('All');
+                setSearchQuery('');
               }}
               className="px-4 py-2 rounded-xl bg-cyan-500/20 text-cyan-300 border border-cyan-500/40 text-xs font-mono"
             >
@@ -403,7 +151,7 @@ export default function ProjectGrid({ projects }: ProjectGridProps) {
           </div>
         )}
 
-        {/* Detailed Modal */}
+        {/* Detailed Spec Modal */}
         <ProjectModal
           project={activeProject}
           onClose={() => setActiveProject(null)}

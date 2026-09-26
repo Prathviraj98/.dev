@@ -19,6 +19,7 @@ export default function Navbar() {
   }, []);
 
   const navLinks = [
+    { name: 'Catalog', href: '/catalog', icon: Sparkles },
     { name: 'Capabilities', href: '#capabilities', icon: Cpu },
     { name: 'Architecture', href: '#architecture', icon: Code2 },
     { name: 'Portfolio', href: '#portfolio', icon: Briefcase },

@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { Home, Cpu, Code2, Briefcase, Mail } from 'lucide-react';
+import { Home, Cpu, Code2, Briefcase, Mail, Sparkles } from 'lucide-react';
 
 export default function MobileBottomDock() {
   const [activeSection, setActiveSection] = useState<string>('home');
@@ -34,9 +34,9 @@ export default function MobileBottomDock() {
   }, []);
 
   const navItems = [
-    { id: 'home', name: 'Home', href: '#', icon: Home },
+    { id: 'home', name: 'Home', href: '/', icon: Home },
+    { id: 'catalog', name: 'Catalog', href: '/catalog', icon: Sparkles },
     { id: 'capabilities', name: 'Services', href: '#capabilities', icon: Cpu },
-    { id: 'architecture', name: 'Engine', href: '#architecture', icon: Code2 },
     { id: 'portfolio', name: 'Projects', href: '#portfolio', icon: Briefcase },
     { id: 'contact', name: 'Contact', href: '#contact', icon: Mail },
   ];
