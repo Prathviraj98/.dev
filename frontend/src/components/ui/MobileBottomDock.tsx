@@ -35,10 +35,10 @@ export default function MobileBottomDock() {
 
   const navItems = [
     { id: 'home', name: 'Home', href: '/', icon: Home },
-    { id: 'catalog', name: 'Catalog', href: '/catalog', icon: Sparkles },
     { id: 'capabilities', name: 'Services', href: '#capabilities', icon: Cpu },
     { id: 'portfolio', name: 'Projects', href: '#portfolio', icon: Briefcase },
     { id: 'contact', name: 'Contact', href: '#contact', icon: Mail },
+    { id: 'catalog', name: 'Catalog', href: '/catalog', icon: Sparkles },
   ];
 
   return (

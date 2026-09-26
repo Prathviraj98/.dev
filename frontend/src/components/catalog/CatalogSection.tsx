@@ -124,7 +124,7 @@ export default function CatalogSection() {
         </h1>
 
         <p className="text-sm sm:text-base text-slate-400 font-sans leading-relaxed">
-          Explore over 100+ high-performance web applications, SaaS platforms, micro-tools, and landing pages across 9 domain segments. Filter by tech stack, tweak theme customizers, and test responsive viewports in real time.
+          Explore over 100+ standard web application &amp; app templates, SaaS dashboards, e-commerce storefronts, and micro-tools across 9 domain segments. Filter by tech stack, tweak theme customizers, and test responsive viewports in real time.
         </p>
       </div>
 
