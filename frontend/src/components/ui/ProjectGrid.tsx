@@ -102,13 +102,13 @@ export default function ProjectGrid({ projects }: ProjectGridProps) {
           <div className="space-y-3">
             <div className="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 text-xs font-mono">
               <Briefcase className="w-3.5 h-3.5" />
-              <span>FEATURED ENGINEERING WORK</span>
+              <span>ENGINEERING PORTFOLIO</span>
             </div>
             <h2 className="text-3xl sm:text-5xl font-extrabold text-white tracking-tight">
-              Interactive <span className="text-gradient-cyan">Project Dock</span>
+              Featured <span className="text-gradient-cyan">Engineering Work</span>
             </h2>
             <p className="text-slate-400 text-sm max-w-xl">
-              Dock into production deployments, AI pipelines, cryptographic engines, and microservices. Hover & click dock items to inspect live specs.
+              Explore production deployments, AI pipelines, cryptographic engines, and microservices. Hover & click items to inspect live specs.
             </p>
           </div>
 
@@ -291,7 +291,7 @@ export default function ProjectGrid({ projects }: ProjectGridProps) {
             <div className="pt-4 flex flex-col items-center justify-center space-y-2.5 max-w-full">
               {/* Header Status & Mobile Touch Swipe Hint */}
               <div className="flex items-center justify-between w-full max-w-md px-2 text-xs font-mono text-slate-400 select-none">
-                <span className="hidden sm:inline text-slate-400">PROJECT DOCK</span>
+                <span className="hidden sm:inline text-slate-400">FEATURED ENGINEERING WORK</span>
                 <span className="sm:hidden text-cyan-400 font-semibold flex items-center gap-1">
                   <ChevronLeft className="w-3.5 h-3.5 animate-pulse" />
                   <span>Swipe or tap dock</span>
