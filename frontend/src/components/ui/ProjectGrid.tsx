@@ -13,11 +13,11 @@ import {
   Activity,
   ChevronLeft,
   ChevronRight,
-  ArrowUpRight,
   Maximize2,
-  Code2,
-  ExternalLink,
-  Github,
+  Play,
+  Pause,
+  Layers,
+  RotateCcw,
 } from 'lucide-react';
 import { Project } from '@/types';
 import ProjectModal from './ProjectModal';
@@ -60,6 +60,8 @@ export default function ProjectGrid({ projects }: ProjectGridProps) {
   const [activeProject, setActiveProject] = useState<Project | null>(null);
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [hoveredDockIndex, setHoveredDockIndex] = useState<number | null>(null);
+  const [isPlaying, setIsPlaying] = useState(true);
+  const [isHoveredOverStage, setIsHoveredOverStage] = useState(false);
 
   const filteredProjects = useMemo(() => {
     return projects.filter((p) => {
@@ -94,6 +96,33 @@ export default function ProjectGrid({ projects }: ProjectGridProps) {
     setSelectedIndex((prev) => (prev - 1 + filteredProjects.length) % filteredProjects.length);
   };
 
+  // 21st.dev Auto-Play Carousel Timer
+  useEffect(() => {
+    if (!isPlaying || isHoveredOverStage || filteredProjects.length <= 1) return;
+
+    const timer = setInterval(() => {
+      setSelectedIndex((prev) => (prev + 1) % filteredProjects.length);
+    }, 5000);
+
+    return () => clearInterval(timer);
+  }, [isPlaying, isHoveredOverStage, filteredProjects.length]);
+
+  // Keyboard navigation (Left / Right Arrow Keys)
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (document.activeElement?.tagName === 'INPUT' || document.activeElement?.tagName === 'TEXTAREA') return;
+
+      if (e.key === 'ArrowRight') {
+        handleNext();
+      } else if (e.key === 'ArrowLeft') {
+        handlePrev();
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [filteredProjects.length]);
+
   return (
     <section id="portfolio" className="py-12 sm:py-16 px-4 sm:px-6 lg:px-8 relative z-10 scroll-mt-16 sm:scroll-mt-20 w-full max-w-full overflow-hidden">
       <div className="max-w-7xl w-full mx-auto space-y-8 sm:space-y-10">
@@ -108,7 +137,7 @@ export default function ProjectGrid({ projects }: ProjectGridProps) {
               Featured <span className="text-gradient-cyan">Engineering Work</span>
             </h2>
             <p className="text-slate-400 text-sm max-w-xl">
-              Explore production deployments, AI pipelines, cryptographic engines, and microservices. Hover & click items to inspect live specs.
+              Interactive 21st.dev style 3D carousel showcasing production deployments, AI pipelines, and cryptographic systems.
             </p>
           </div>
 
@@ -151,150 +180,202 @@ export default function ProjectGrid({ projects }: ProjectGridProps) {
           </div>
         </div>
 
-        {/* 🚀 Main Project Stage Showcase Container */}
+        {/* 🚀 21st.dev Interactive Card Carousel Stage Container */}
         {currentProject ? (
           <div className="space-y-6">
-            <AnimatePresence mode="wait">
-              <motion.div
-                key={currentProject.id || currentProject.slug}
-                initial={{ opacity: 0, scale: 0.98, y: 15 }}
-                animate={{ opacity: 1, scale: 1, y: 0 }}
-                exit={{ opacity: 0, scale: 0.98, y: -15 }}
-                transition={{ duration: 0.35, ease: 'easeOut' }}
-                className="glass-panel rounded-3xl overflow-hidden border border-white/10 shadow-2xl relative min-h-none sm:min-h-[500px] lg:h-[480px]"
-              >
-                <div className="grid grid-cols-1 lg:grid-cols-12 gap-0 h-full">
-                  {/* Left Thumbnail Banner */}
-                  <div className="lg:col-span-6 relative h-52 xs:h-64 sm:h-80 lg:h-full min-h-0 sm:min-h-[280px] overflow-hidden bg-slate-950/90 flex items-center justify-center p-3 sm:p-5 group">
-                    <img
-                      src={currentProject.image_url}
-                      alt={currentProject.title}
-                      onError={(e) => {
-                        (e.target as HTMLImageElement).src = 'https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&w=1200&q=80';
-                      }}
-                      className="w-full h-full object-contain object-center rounded-xl opacity-100 group-hover:scale-[1.02] transition-transform duration-500 shadow-md"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-slate-950/50 via-transparent to-transparent pointer-events-none" />
+            {/* 21st.dev Top Control Toolbar */}
+            <div className="flex flex-wrap items-center justify-between gap-3 px-4 py-2.5 rounded-2xl bg-slate-900/60 border border-white/10 text-xs font-mono backdrop-blur-md">
+              <div className="flex items-center space-x-3">
+                <span className="px-2.5 py-1 rounded-md bg-cyan-500/10 text-cyan-300 border border-cyan-500/20 text-[10px] font-bold">
+                  21ST.DEV CAROUSEL
+                </span>
+                <span className="text-slate-300">
+                  SLIDE <strong className="text-cyan-400">{(selectedIndex + 1).toString().padStart(2, '0')}</strong> / {filteredProjects.length.toString().padStart(2, '0')}
+                </span>
+              </div>
 
-                    {/* Category Badge Pill */}
-                    <div className="absolute top-4 left-4 z-10 flex items-center gap-2 flex-wrap">
-                      <span className="px-3 py-1 rounded-full text-xs font-mono font-medium bg-slate-950/80 backdrop-blur-md text-cyan-300 border border-cyan-500/30">
-                        {currentProject.category}
-                      </span>
-                      <span className="px-2.5 py-1 rounded-full text-[10px] font-mono text-slate-300 bg-slate-900/80 border border-white/10 hidden xs:inline-block">
-                        ID: {currentProject.slug}
-                      </span>
+              {/* Center Progress Bar Line */}
+              <div className="hidden md:flex flex-1 max-w-xs mx-4 h-1 bg-white/10 rounded-full overflow-hidden">
+                <motion.div
+                  key={selectedIndex + (isPlaying && !isHoveredOverStage ? '-active' : '-paused')}
+                  initial={{ width: '0%' }}
+                  animate={{ width: isPlaying && !isHoveredOverStage ? '100%' : '0%' }}
+                  transition={{ duration: isPlaying && !isHoveredOverStage ? 5 : 0, ease: 'linear' }}
+                  className="h-full bg-gradient-to-r from-cyan-500 to-blue-500 rounded-full"
+                />
+              </div>
+
+              {/* Control Action Buttons (Play/Pause, Prev, Next) */}
+              <div className="flex items-center space-x-2">
+                <button
+                  onClick={() => setIsPlaying(!isPlaying)}
+                  className={`px-3 py-1.5 rounded-xl border text-xs font-mono flex items-center gap-1.5 transition-colors ${
+                    isPlaying
+                      ? 'bg-cyan-500/20 text-cyan-300 border-cyan-500/40 shadow-neon-cyan'
+                      : 'bg-white/5 text-slate-400 border-white/10 hover:text-white'
+                  }`}
+                  title={isPlaying ? 'Pause Auto-Play' : 'Play Auto-Play'}
+                >
+                  {isPlaying ? <Pause className="w-3.5 h-3.5" /> : <Play className="w-3.5 h-3.5" />}
+                  <span>{isPlaying ? 'AUTO-PLAY ON' : 'PAUSED'}</span>
+                </button>
+
+                <div className="flex items-center space-x-1 pl-2 border-l border-white/10">
+                  <button
+                    onClick={handlePrev}
+                    disabled={filteredProjects.length <= 1}
+                    className="p-2 min-w-[36px] min-h-[36px] flex items-center justify-center rounded-xl bg-white/5 hover:bg-cyan-500/20 text-white border border-white/10 hover:border-cyan-500/40 disabled:opacity-40 transition-colors"
+                    aria-label="Previous Slide"
+                  >
+                    <ChevronLeft className="w-4 h-4" />
+                  </button>
+                  <button
+                    onClick={handleNext}
+                    disabled={filteredProjects.length <= 1}
+                    className="p-2 min-w-[36px] min-h-[36px] flex items-center justify-center rounded-xl bg-white/5 hover:bg-cyan-500/20 text-white border border-white/10 hover:border-cyan-500/40 disabled:opacity-40 transition-colors"
+                    aria-label="Next Slide"
+                  >
+                    <ChevronRight className="w-4 h-4" />
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            {/* Main Stage Card Slider */}
+            <div
+              onMouseEnter={() => setIsHoveredOverStage(true)}
+              onMouseLeave={() => setIsHoveredOverStage(false)}
+              className="relative w-full"
+            >
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={currentProject.id || currentProject.slug}
+                  initial={{ opacity: 0, x: 20, scale: 0.98 }}
+                  animate={{ opacity: 1, x: 0, scale: 1 }}
+                  exit={{ opacity: 0, x: -20, scale: 0.98 }}
+                  transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+                  drag="x"
+                  dragConstraints={{ left: 0, right: 0 }}
+                  dragElastic={0.15}
+                  onDragEnd={(e, info) => {
+                    if (info.offset.x < -40) handleNext();
+                    else if (info.offset.x > 40) handlePrev();
+                  }}
+                  className="glass-panel rounded-3xl overflow-hidden border border-white/15 hover:border-cyan-500/30 shadow-[0_0_50px_rgba(6,182,212,0.12)] relative min-h-none sm:min-h-[500px] lg:h-[480px] cursor-grab active:cursor-grabbing"
+                >
+                  <div className="grid grid-cols-1 lg:grid-cols-12 gap-0 h-full">
+                    {/* Left Banner Section (Complete Uncropped Banner Image) */}
+                    <div className="lg:col-span-6 relative h-56 xs:h-64 sm:h-80 lg:h-full min-h-0 sm:min-h-[280px] overflow-hidden bg-slate-950/90 flex items-center justify-center p-3 sm:p-5 group">
+                      <img
+                        src={currentProject.image_url}
+                        alt={currentProject.title}
+                        onError={(e) => {
+                          (e.target as HTMLImageElement).src = 'https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&w=1200&q=80';
+                        }}
+                        className="w-full h-full object-contain object-center rounded-xl opacity-100 group-hover:scale-[1.02] transition-transform duration-500 shadow-md"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-slate-950/50 via-transparent to-transparent pointer-events-none" />
+
+                      {/* Category Badge Pill */}
+                      <div className="absolute top-4 left-4 z-10 flex items-center gap-2 flex-wrap">
+                        <span className="px-3 py-1 rounded-full text-xs font-mono font-medium bg-slate-950/80 backdrop-blur-md text-cyan-300 border border-cyan-500/30">
+                          {currentProject.category}
+                        </span>
+                        <span className="px-2.5 py-1 rounded-full text-[10px] font-mono text-slate-300 bg-slate-900/80 border border-white/10 hidden xs:inline-block">
+                          ID: {currentProject.slug}
+                        </span>
+                      </div>
                     </div>
 
-                    {/* Prev / Next Stage Nav Buttons */}
-                    <div className="absolute bottom-4 right-4 z-20 flex items-center space-x-2">
-                      <button
-                        onClick={handlePrev}
-                        disabled={filteredProjects.length <= 1}
-                        className="p-2.5 min-w-[44px] min-h-[44px] flex items-center justify-center rounded-xl bg-slate-950/80 backdrop-blur-md hover:bg-cyan-500/20 text-white border border-white/20 hover:border-cyan-500/40 disabled:opacity-40 transition-colors"
-                        title="Previous Project"
-                      >
-                        <ChevronLeft className="w-4 h-4" />
-                      </button>
-                      <button
-                        onClick={handleNext}
-                        disabled={filteredProjects.length <= 1}
-                        className="p-2.5 min-w-[44px] min-h-[44px] flex items-center justify-center rounded-xl bg-slate-950/80 backdrop-blur-md hover:bg-cyan-500/20 text-white border border-white/20 hover:border-cyan-500/40 disabled:opacity-40 transition-colors"
-                        title="Next Project"
-                      >
-                        <ChevronRight className="w-4 h-4" />
-                      </button>
-                    </div>
-                  </div>
+                    {/* Right Specs Panel */}
+                    <div className="lg:col-span-6 p-5 xs:p-6 sm:p-8 flex flex-col justify-between h-full space-y-4 overflow-hidden bg-slate-900/40">
+                      <div className="space-y-2">
+                        <div className="flex items-center space-x-2 text-xs font-mono text-cyan-400">
+                          <Sparkles className="w-4 h-4 text-cyan-400 shrink-0" />
+                          <span className="truncate">{currentProject.tagline}</span>
+                        </div>
 
-                  {/* Right Content Specs Panel (Uniform Height Layout) */}
-                  <div className="lg:col-span-6 p-4 xs:p-6 sm:p-8 flex flex-col justify-between h-full space-y-4 overflow-hidden">
-                    <div className="space-y-2">
-                      <div className="flex items-center space-x-2 text-xs font-mono text-cyan-400">
-                        <Sparkles className="w-4 h-4 text-cyan-400 shrink-0" />
-                        <span className="truncate">{currentProject.tagline}</span>
+                        <h3 className="text-xl xs:text-2xl sm:text-3xl font-extrabold text-white tracking-tight line-clamp-1">
+                          {currentProject.title}
+                        </h3>
+
+                        <p className="text-slate-300 text-xs sm:text-sm line-clamp-3 leading-relaxed">
+                          {currentProject.summary}
+                        </p>
                       </div>
 
-                      <h3 className="text-xl xs:text-2xl sm:text-3xl font-extrabold text-white tracking-tight line-clamp-1">
-                        {currentProject.title}
-                      </h3>
-
-                      <p className="text-slate-300 text-xs sm:text-sm line-clamp-3 leading-relaxed">
-                        {currentProject.summary}
-                      </p>
-                    </div>
-
-                    {/* Key Metrics Breakdown (Uniform Slot Height) */}
-                    <div className="min-h-[56px] sm:h-16 flex items-center">
-                      {(() => {
-                        const displayMetrics = (currentProject.key_metrics || []).filter(
-                          (m) => !['stars', 'forks', 'open issues'].includes(m.label.toLowerCase())
-                        );
-                        if (displayMetrics.length === 0) {
+                      {/* Key Metrics Breakdown */}
+                      <div className="min-h-[56px] sm:h-16 flex items-center">
+                        {(() => {
+                          const displayMetrics = (currentProject.key_metrics || []).filter(
+                            (m) => !['stars', 'forks', 'open issues'].includes(m.label.toLowerCase())
+                          );
+                          if (displayMetrics.length === 0) {
+                            return (
+                              <div className="w-full py-2.5 px-4 bg-white/5 rounded-2xl border border-white/10 flex items-center justify-between text-xs font-mono text-slate-400">
+                                <span>Architecture Verified</span>
+                                <span className="text-cyan-400 font-bold">100% Production Ready</span>
+                              </div>
+                            );
+                          }
                           return (
-                            <div className="w-full py-2.5 px-4 bg-white/5 rounded-2xl border border-white/10 flex items-center justify-between text-xs font-mono text-slate-400">
-                              <span>Architecture Verified</span>
-                              <span className="text-cyan-400 font-bold">100% Production Ready</span>
+                            <div className="w-full grid grid-cols-3 gap-1.5 sm:gap-2 py-2 px-2.5 sm:px-3 bg-white/5 rounded-2xl border border-white/10">
+                              {displayMetrics.slice(0, 3).map((metric, idx) => (
+                                <div key={idx} className="text-center">
+                                  <span className="block text-xs sm:text-sm font-extrabold font-mono text-cyan-300 truncate">
+                                    {metric.value}
+                                  </span>
+                                  <span className="block text-[9px] sm:text-[10px] text-slate-400 truncate">
+                                    {metric.label}
+                                  </span>
+                                </div>
+                              ))}
                             </div>
                           );
-                        }
-                        return (
-                          <div className="w-full grid grid-cols-3 gap-1.5 sm:gap-2 py-2 px-2.5 sm:px-3 bg-white/5 rounded-2xl border border-white/10">
-                            {displayMetrics.slice(0, 3).map((metric, idx) => (
-                              <div key={idx} className="text-center">
-                                <span className="block text-xs sm:text-sm font-extrabold font-mono text-cyan-300 truncate">
-                                  {metric.value}
-                                </span>
-                                <span className="block text-[9px] sm:text-[10px] text-slate-400 truncate">
-                                  {metric.label}
-                                </span>
-                              </div>
-                            ))}
-                          </div>
-                        );
-                      })()}
-                    </div>
+                        })()}
+                      </div>
 
-                    {/* Tech Stack Chips */}
-                    <div className="space-y-1.5">
-                      <span className="text-[10px] font-mono text-slate-400 uppercase tracking-wider block">
-                        ARCHITECTURE & TECH STACK
-                      </span>
-                      <div className="flex flex-wrap gap-1.5 max-h-20 overflow-y-auto">
-                        {currentProject.tech_stack.map((tech) => (
-                          <span
-                            key={tech}
-                            className="px-2.5 py-1 rounded-lg bg-white/5 border border-white/10 text-[11px] font-mono text-slate-200 hover:border-cyan-500/30 hover:text-cyan-300 transition-colors"
-                          >
-                            {tech}
-                          </span>
-                        ))}
+                      {/* Tech Stack Chips */}
+                      <div className="space-y-1.5">
+                        <span className="text-[10px] font-mono text-slate-400 uppercase tracking-wider block">
+                          ARCHITECTURE & TECH STACK
+                        </span>
+                        <div className="flex flex-wrap gap-1.5 max-h-20 overflow-y-auto">
+                          {currentProject.tech_stack.map((tech) => (
+                            <span
+                              key={tech}
+                              className="px-2.5 py-1 rounded-lg bg-white/5 border border-white/10 text-[11px] font-mono text-slate-200 hover:border-cyan-500/30 hover:text-cyan-300 transition-colors"
+                            >
+                              {tech}
+                            </span>
+                          ))}
+                        </div>
+                      </div>
+
+                      {/* Action CTA Buttons */}
+                      <div className="flex flex-wrap items-center gap-3 pt-2 border-t border-white/10">
+                        <button
+                          onClick={() => setActiveProject(currentProject)}
+                          className="w-full sm:w-auto px-5 py-3 min-h-[44px] rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 text-white font-mono text-xs font-semibold flex items-center justify-center space-x-2 shadow-neon-cyan hover:brightness-110 transition-all transform hover:-translate-y-0.5"
+                        >
+                          <Maximize2 className="w-3.5 h-3.5" />
+                          <span>Inspect Architecture & Specs</span>
+                        </button>
                       </div>
                     </div>
-
-                    {/* Action CTA Buttons */}
-                    <div className="flex flex-wrap items-center gap-3 pt-2 border-t border-white/10">
-                      <button
-                        onClick={() => setActiveProject(currentProject)}
-                        className="w-full sm:w-auto px-5 py-3 min-h-[44px] rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 text-white font-mono text-xs font-semibold flex items-center justify-center space-x-2 shadow-neon-cyan hover:brightness-110 transition-all transform hover:-translate-y-0.5"
-                      >
-                        <Maximize2 className="w-3.5 h-3.5" />
-                        <span>Inspect Architecture & Specs</span>
-                      </button>
-                    </div>
                   </div>
-                </div>
-              </motion.div>
-            </AnimatePresence>
+                </motion.div>
+              </AnimatePresence>
+            </div>
 
-            {/* 🖥️ macOS Interactive Floating Dock Bar */}
+            {/* 🖥️ 21st.dev Interactive Dock & Page Indicator Bar */}
             <div className="pt-4 flex flex-col items-center justify-center space-y-2.5 max-w-full">
-              {/* Header Status & Mobile Touch Swipe Hint */}
+              {/* Header Status & Touch Swipe Hint */}
               <div className="flex items-center justify-between w-full max-w-md px-2 text-xs font-mono text-slate-400 select-none">
                 <span className="hidden sm:inline text-slate-400">FEATURED ENGINEERING WORK</span>
                 <span className="sm:hidden text-cyan-400 font-semibold flex items-center gap-1">
                   <ChevronLeft className="w-3.5 h-3.5 animate-pulse" />
-                  <span>Swipe or tap dock</span>
+                  <span>Swipe card or tap dock</span>
                 </span>
                 <span className="text-slate-600 hidden sm:inline">•</span>
                 <span className="text-cyan-400 font-bold">
@@ -329,7 +410,7 @@ export default function ProjectGrid({ projects }: ProjectGridProps) {
                       key={project.id || project.slug}
                       className="relative group flex flex-col items-center shrink-0 snap-center px-1"
                     >
-                      {/* Hover Tooltip Label (Desktop sm+) */}
+                      {/* Hover Tooltip Label */}
                       <AnimatePresence>
                         {isHovered && (
                           <motion.div
@@ -373,7 +454,7 @@ export default function ProjectGrid({ projects }: ProjectGridProps) {
                         {shortTitle}
                       </span>
 
-                      {/* macOS Active LED Indicator Dot */}
+                      {/* Active LED Indicator Dot */}
                       <div className="h-2 flex items-center justify-center mt-0.5 sm:mt-1">
                         {isSelected ? (
                           <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 shadow-neon-cyan animate-pulse" />
