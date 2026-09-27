@@ -4,20 +4,21 @@ const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
 const GITHUB_USERNAME = 'Prathviraj98';
 
 export function getRelevantProjectImage(name: string, description: string = '', category: string = ''): string {
-  const n = (name || '').toLowerCase();
-  const str = `${name} ${description} ${category}`.toLowerCase();
+  if (category === 'Full-Stack') return '/images/fullstack_banner.png';
+  if (category === 'AI / Machine Learning') return '/images/ai_ml_banner.png';
+  if (category === 'Mobile & PWA') return '/images/mobile_pwa_banner.png';
+  if (category === 'Cryptography') return '/images/cryptography_banner.png';
+  if (category === 'IoT & Hardware') return '/images/fullstack_banner.png';
 
-  if (category === 'Mobile & PWA' || str.includes('flutter') || str.includes('mobile') || str.includes('pwa') || str.includes('anvesana') || str.includes('billing')) {
+  const str = `${name} ${description}`.toLowerCase();
+  if (str.includes('flutter') || str.includes('mobile') || str.includes('pwa') || str.includes('anvesana')) {
     return '/images/mobile_pwa_banner.png';
   }
-  if (category === 'Cryptography' || str.includes('crypto') || str.includes('spam') || str.includes('whatsgram') || str.includes('security') || str.includes('ratchet') || str.includes('encrypt')) {
+  if (str.includes('crypto') || str.includes('spam') || str.includes('whatsgram') || str.includes('security') || str.includes('ratchet') || str.includes('encrypt')) {
     return '/images/cryptography_banner.png';
   }
-  if (category === 'AI / Machine Learning' || str.includes('ai') || str.includes('symbot') || str.includes('kaes') || str.includes('eval') || str.includes('mouse') || str.includes('vision') || str.includes('learning') || str.includes('nlp')) {
+  if (str.includes('ai') || str.includes('symbot') || str.includes('kaes') || str.includes('eval') || str.includes('mouse') || str.includes('vision') || str.includes('learning') || str.includes('nlp')) {
     return '/images/ai_ml_banner.png';
-  }
-  if (category === 'Full-Stack' || str.includes('full-stack') || str.includes('genmed') || str.includes('auditforge') || str.includes('web') || str.includes('backend') || str.includes('pos')) {
-    return '/images/fullstack_banner.png';
   }
 
   return '/images/fullstack_banner.png';
