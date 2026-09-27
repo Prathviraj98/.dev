@@ -12,6 +12,7 @@ export default function CapabilitiesSection() {
       icon: Server,
       accent: 'from-cyan-500 to-blue-600',
       highlights: ['Next.js 14 App Router', 'FastAPI & Async IO', 'PostgreSQL / PostGIS', 'Redis Caching'],
+      banner: '/images/fullstack_banner.png',
     },
     {
       title: 'AI & Document NLP Pipelines',
@@ -19,6 +20,7 @@ export default function CapabilitiesSection() {
       icon: Cpu,
       accent: 'from-indigo-500 to-purple-600',
       highlights: ['SBERT Embeddings', 'Tesseract & OpenCV', 'Vector Databases', 'PyTorch / HuggingFace'],
+      banner: '/images/ai_ml_banner.png',
     },
     {
       title: 'Zero-Knowledge Cryptography',
@@ -26,13 +28,15 @@ export default function CapabilitiesSection() {
       icon: ShieldCheck,
       accent: 'from-emerald-500 to-teal-600',
       highlights: ['Libsodium Crypto', 'Double Ratchet Protocol', 'WebAssembly (Wasm)', 'Forward Secrecy'],
+      banner: '/images/cryptography_banner.png',
     },
     {
-      title: 'Real-Time 3D WebGL Graphics',
-      description: 'Crafting fluid 60fps WebGL visual experiences using Three.js, GLSL shaders, React Three Fiber, and Framer Motion for immersive user interfaces.',
+      title: 'Mobile & PWA Applications',
+      description: 'Building high-performance cross-platform mobile apps and progressive web applications with Flutter, React Native, offline-first sync, and native performance.',
       icon: Sparkles,
       accent: 'from-pink-500 to-rose-600',
-      highlights: ['Three.js & R3F', 'GLSL Custom Shaders', 'Lenis Smooth Scroll', 'Framer Motion'],
+      highlights: ['Flutter & Dart', 'React Native / PWA', 'Offline-First DB', 'Cross-Platform UI'],
+      banner: '/images/mobile_pwa_banner.png',
     },
   ];
 
@@ -83,7 +87,7 @@ export default function CapabilitiesSection() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
-                className="glass-card p-4 xs:p-6 sm:p-8 rounded-2xl relative overflow-hidden group border border-white/5 hover:border-white/15"
+                className="glass-card p-4 xs:p-6 sm:p-7 rounded-2xl relative overflow-hidden group border border-white/5 hover:border-white/15 flex flex-col justify-between"
               >
                 {/* Accent Background Glow */}
                 <div
@@ -91,9 +95,18 @@ export default function CapabilitiesSection() {
                 />
 
                 <div className="space-y-4 relative z-10">
-                  <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${cap.accent} p-[1px]`}>
-                    <div className="w-full h-full bg-slate-950 rounded-[11px] flex items-center justify-center text-white">
-                      <Icon className="w-6 h-6" />
+                  {/* Banner Image Display */}
+                  <div className="relative h-44 sm:h-48 w-full overflow-hidden rounded-xl border border-white/10 group-hover:border-cyan-500/30 transition-all duration-300">
+                    <img 
+                      src={cap.banner} 
+                      alt={cap.title}
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/20 to-transparent" />
+                    <div className={`absolute top-3 left-3 w-10 h-10 rounded-xl bg-gradient-to-br ${cap.accent} p-[1px] shadow-lg`}>
+                      <div className="w-full h-full bg-slate-950/90 backdrop-blur-md rounded-[11px] flex items-center justify-center text-white">
+                        <Icon className="w-5 h-5" />
+                      </div>
                     </div>
                   </div>
 

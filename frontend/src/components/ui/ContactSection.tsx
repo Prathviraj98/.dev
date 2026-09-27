@@ -12,7 +12,7 @@ export default function ContactSection() {
     email: '',
     company: '',
     project_scope: 'Full-Stack Development',
-    budget_range: '$5k - $10k',
+    budget_range: '₹50k - ₹100k',
     message: '',
   });
 
@@ -30,10 +30,10 @@ export default function ContactSection() {
   ];
 
   const budgetOptions = [
-    '$5k - $10k',
-    '$10k - $25k',
-    '$25k - $50k',
-    '$50k+',
+    '₹50k - ₹100k',
+    '₹100k - ₹250k',
+    '₹250k - ₹500k',
+    '₹500k+',
   ];
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -79,7 +79,7 @@ export default function ContactSection() {
       email: '',
       company: '',
       project_scope: 'Full-Stack Development',
-      budget_range: '$5k - $10k',
+      budget_range: '₹50k - ₹100k',
       message: '',
     });
 

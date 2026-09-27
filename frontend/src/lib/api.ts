@@ -7,44 +7,20 @@ export function getRelevantProjectImage(name: string, description: string = '', 
   const n = (name || '').toLowerCase();
   const str = `${name} ${description} ${category}`.toLowerCase();
 
-  if (str.includes('ipl') || str.includes('score') || str.includes('cricket') || str.includes('sports')) {
-    return 'https://images.unsplash.com/photo-1540747913346-19e32dc3e97e?auto=format&fit=crop&w=1200&q=80';
+  if (category === 'Mobile & PWA' || str.includes('flutter') || str.includes('mobile') || str.includes('pwa') || str.includes('anvesana') || str.includes('billing')) {
+    return '/images/mobile_pwa_banner.png';
   }
-  if (str.includes('symbot') || str.includes('jenny') || str.includes('crewai') || str.includes('langchain') || str.includes('agent')) {
-    return 'https://images.unsplash.com/photo-1620712943543-bcc4688e7485?auto=format&fit=crop&w=1200&q=80';
+  if (category === 'Cryptography' || str.includes('crypto') || str.includes('spam') || str.includes('whatsgram') || str.includes('security') || str.includes('ratchet') || str.includes('encrypt')) {
+    return '/images/cryptography_banner.png';
   }
-  if (str.includes('kaes') || str.includes('eval') || str.includes('paper') || str.includes('exam') || str.includes('rubric') || str.includes('math')) {
-    return 'https://images.unsplash.com/photo-1434030216411-0b793f4b4173?auto=format&fit=crop&w=1200&q=80';
+  if (category === 'AI / Machine Learning' || str.includes('ai') || str.includes('symbot') || str.includes('kaes') || str.includes('eval') || str.includes('mouse') || str.includes('vision') || str.includes('learning') || str.includes('nlp')) {
+    return '/images/ai_ml_banner.png';
   }
-  if (str.includes('mouse') || str.includes('gesture') || str.includes('opencv') || str.includes('vision')) {
-    return 'https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?auto=format&fit=crop&w=1200&q=80';
-  }
-  if (str.includes('genmed') || str.includes('medicine') || str.includes('pharma') || str.includes('drug')) {
-    return 'https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?auto=format&fit=crop&w=1200&q=80';
-  }
-  if (str.includes('billing') || str.includes('pos') || str.includes('ecom') || str.includes('invoice') || str.includes('retail')) {
-    return 'https://images.unsplash.com/photo-1556740758-90de374c12ad?auto=format&fit=crop&w=1200&q=80';
-  }
-  if (str.includes('arch') || str.includes('post_install') || str.includes('linux') || str.includes('titus') || str.includes('shell')) {
-    return 'https://images.unsplash.com/photo-1629654297299-c8506221ca97?auto=format&fit=crop&w=1200&q=80';
-  }
-  if (str.includes('search') || str.includes('streamlit') || str.includes('find')) {
-    return 'https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?auto=format&fit=crop&w=1200&q=80';
-  }
-  if (str.includes('anvesana') || str.includes('flutter') || str.includes('mobile') || str.includes('pwa')) {
-    return 'https://images.unsplash.com/photo-1551650975-87deedd944c3?auto=format&fit=crop&w=1200&q=80';
-  }
-  if (str.includes('spam') || str.includes('whatsgram') || str.includes('telegram') || str.includes('chat') || str.includes('crypto')) {
-    return 'https://images.unsplash.com/photo-1563986768609-322da13575f3?auto=format&fit=crop&w=1200&q=80';
-  }
-  if (str.includes('audit') || str.includes('compliance') || str.includes('grc')) {
-    return 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1200&q=80';
-  }
-  if (str.includes('iot') || str.includes('medical') || str.includes('sensor') || str.includes('microg')) {
-    return 'https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=1200&q=80';
+  if (category === 'Full-Stack' || str.includes('full-stack') || str.includes('genmed') || str.includes('auditforge') || str.includes('web') || str.includes('backend') || str.includes('pos')) {
+    return '/images/fullstack_banner.png';
   }
 
-  return 'https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&w=1200&q=80';
+  return '/images/fullstack_banner.png';
 }
 
 export const SEED_PROJECTS: Project[] = [
@@ -66,7 +42,7 @@ SymBot orchestrates autonomous AI agents working sequentially or hierarchically 
     github_url: 'https://github.com/Prathviraj98/SymBot_v2',
     live_url: 'https://github.com/Prathviraj98/SymBot_v2',
     featured: true,
-    image_url: 'https://images.unsplash.com/photo-1620712943543-bcc4688e7485?auto=format&fit=crop&w=1200&q=80',
+    image_url: '/images/ai_ml_banner.png',
   },
   {
     id: 'kaes',
@@ -87,7 +63,7 @@ KAES combines computer vision and NLP to evaluate handwritten and digital examin
     github_url: 'https://github.com/Prathviraj98/kaes',
     live_url: 'https://github.com/Prathviraj98/kaes',
     featured: true,
-    image_url: 'https://images.unsplash.com/photo-1434030216411-0b793f4b4173?auto=format&fit=crop&w=1200&q=80',
+    image_url: '/images/ai_ml_banner.png',
   },
   {
     id: 'anvesana-experimind',
@@ -107,7 +83,7 @@ Anvesana Experimind provides an offline-capable mobile workflow built with Flutt
     github_url: 'https://github.com/Prathviraj98/anvesana-experimind-labs',
     live_url: 'https://github.com/Prathviraj98/anvesana-experimind-labs',
     featured: true,
-    image_url: 'https://images.unsplash.com/photo-1551650975-87deedd944c3?auto=format&fit=crop&w=1200&q=80',
+    image_url: '/images/mobile_pwa_banner.png',
   },
   {
     id: 'virtual-mouse',
@@ -127,7 +103,7 @@ Executes low-latency frame processing pipeline to convert webcam hand gestures i
     github_url: 'https://github.com/Prathviraj98/virtual_mouse',
     live_url: 'https://github.com/Prathviraj98/virtual_mouse',
     featured: true,
-    image_url: 'https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?auto=format&fit=crop&w=1200&q=80',
+    image_url: '/images/ai_ml_banner.png',
   },
   {
     id: 'genmed',
@@ -147,7 +123,7 @@ A fast medical search engine querying chemical composition indices to suggest af
     github_url: 'https://github.com/Prathviraj98/GenMed',
     live_url: 'https://github.com/Prathviraj98/GenMed',
     featured: true,
-    image_url: 'https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?auto=format&fit=crop&w=1200&q=80',
+    image_url: '/images/fullstack_banner.png',
   },
   {
     id: 'flutter-billing-app',
@@ -167,7 +143,7 @@ An offline-first billing system designed for high-speed retail transactions.
     github_url: 'https://github.com/Prathviraj98/flutter-billing-app',
     live_url: 'https://github.com/Prathviraj98/flutter-billing-app',
     featured: true,
-    image_url: 'https://images.unsplash.com/photo-1556740758-90de374c12ad?auto=format&fit=crop&w=1200&q=80',
+    image_url: '/images/mobile_pwa_banner.png',
   },
   {
     id: 'arch-post-install',
@@ -187,7 +163,7 @@ Modular shell automation pipeline for rapid desktop provisioning.
     github_url: 'https://github.com/Prathviraj98/arch_post_install',
     live_url: 'https://github.com/Prathviraj98/arch_post_install',
     featured: true,
-    image_url: 'https://images.unsplash.com/photo-1629654297299-c8506221ca97?auto=format&fit=crop&w=1200&q=80',
+    image_url: '/images/fullstack_banner.png',
   },
   {
     id: 'auditforge',
@@ -208,7 +184,7 @@ AuditForge employs an event-driven architecture designed to process thousands of
     github_url: 'https://github.com/Prathviraj98',
     live_url: 'https://github.com/Prathviraj98',
     featured: true,
-    image_url: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1200&q=80',
+    image_url: '/images/fullstack_banner.png',
   },
   {
     id: 'spam-messenger',
@@ -228,7 +204,7 @@ SPAM guarantees confidentiality, integrity, and metadata obfuscation across untr
     github_url: 'https://github.com/Prathviraj98/WhatsGram',
     live_url: 'https://github.com/Prathviraj98/WhatsGram',
     featured: true,
-    image_url: 'https://images.unsplash.com/photo-1563986768609-322da13575f3?auto=format&fit=crop&w=1200&q=80',
+    image_url: '/images/cryptography_banner.png',
   },
   {
     id: 'iot-medical-diagnostics',
@@ -249,7 +225,7 @@ A low-power point-of-care medical diagnostic kit executing neural inference dire
     github_url: 'https://github.com/Prathviraj98',
     live_url: 'https://github.com/Prathviraj98',
     featured: true,
-    image_url: 'https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=1200&q=80',
+    image_url: '/images/ai_ml_banner.png',
   },
 ];
 
