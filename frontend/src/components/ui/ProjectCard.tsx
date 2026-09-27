@@ -130,17 +130,17 @@ export default function ProjectCard({
           /* Maximized Expanded View */
           <div className="flex flex-col h-full">
             {/* Thumbnail Header Image */}
-            <div className="relative h-48 sm:h-56 w-full overflow-hidden bg-slate-900">
+            <div className="relative h-48 sm:h-56 w-full overflow-hidden bg-slate-950 flex items-center justify-center p-3">
               <img
                 src={project.image_url}
                 alt={project.title}
                 onError={(e) => {
                   (e.target as HTMLImageElement).src = 'https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&w=1200&q=80';
                 }}
-                className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500 opacity-80 group-hover:opacity-100"
+                className="w-full h-full object-contain object-center rounded-lg opacity-100 group-hover:scale-[1.03] transition-transform duration-500"
               />
 
-              <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/40 to-transparent" />
+              <div className="absolute inset-0 bg-gradient-to-t from-slate-950/40 via-transparent to-transparent pointer-events-none" />
 
               {/* Category Badge */}
               <div className="absolute top-3 left-3 z-10">

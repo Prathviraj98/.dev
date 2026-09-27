@@ -52,17 +52,17 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
           className="relative w-full max-w-4xl max-h-[90vh] glass-panel rounded-3xl overflow-hidden border border-white/20 shadow-2xl z-10 flex flex-col my-auto"
         >
           {/* Modal Header Image & Title */}
-          <div className="relative h-44 xs:h-56 sm:h-72 w-full overflow-hidden bg-slate-900 shrink-0">
+          <div className="relative h-48 xs:h-60 sm:h-72 w-full overflow-hidden bg-slate-950 flex items-center justify-center p-4 shrink-0">
             <img
               src={project.image_url}
               alt={project.title}
               onError={(e) => {
                 (e.target as HTMLImageElement).src = 'https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&w=1200&q=80';
               }}
-              className="w-full h-full object-cover object-center opacity-70"
+              className="w-full h-full object-contain object-center rounded-xl opacity-100"
             />
 
-            <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/60 to-transparent" />
+            <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/30 to-transparent pointer-events-none" />
 
             <button
               onClick={onClose}

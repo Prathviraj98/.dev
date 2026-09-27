@@ -96,13 +96,13 @@ export default function CapabilitiesSection() {
 
                 <div className="space-y-4 relative z-10">
                   {/* Banner Image Display */}
-                  <div className="relative h-44 sm:h-48 w-full overflow-hidden rounded-xl border border-white/10 group-hover:border-cyan-500/30 transition-all duration-300">
+                  <div className="relative h-44 sm:h-48 w-full overflow-hidden rounded-xl border border-white/10 group-hover:border-cyan-500/30 transition-all duration-300 bg-slate-950 flex items-center justify-center p-2">
                     <img 
                       src={cap.banner} 
                       alt={cap.title}
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                      className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500 rounded-lg opacity-100"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/20 to-transparent" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-slate-950/50 via-transparent to-transparent pointer-events-none" />
                     <div className={`absolute top-3 left-3 w-10 h-10 rounded-xl bg-gradient-to-br ${cap.accent} p-[1px] shadow-lg`}>
                       <div className="w-full h-full bg-slate-950/90 backdrop-blur-md rounded-[11px] flex items-center justify-center text-white">
                         <Icon className="w-5 h-5" />

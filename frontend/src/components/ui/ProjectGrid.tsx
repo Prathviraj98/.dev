@@ -165,16 +165,16 @@ export default function ProjectGrid({ projects }: ProjectGridProps) {
               >
                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-0 h-full">
                   {/* Left Thumbnail Banner */}
-                  <div className="lg:col-span-6 relative h-48 xs:h-60 sm:h-72 lg:h-full min-h-0 sm:min-h-[260px] overflow-hidden bg-slate-950">
+                  <div className="lg:col-span-6 relative h-52 xs:h-64 sm:h-80 lg:h-full min-h-0 sm:min-h-[280px] overflow-hidden bg-slate-950/90 flex items-center justify-center p-3 sm:p-5 group">
                     <img
                       src={currentProject.image_url}
                       alt={currentProject.title}
                       onError={(e) => {
                         (e.target as HTMLImageElement).src = 'https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&w=1200&q=80';
                       }}
-                      className="w-full h-full object-cover object-center opacity-85 hover:scale-105 transition-transform duration-700"
+                      className="w-full h-full object-contain object-center rounded-xl opacity-100 group-hover:scale-[1.02] transition-transform duration-500 shadow-md"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/30 to-transparent lg:bg-gradient-to-r lg:from-transparent lg:via-slate-950/20 lg:to-slate-950" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-slate-950/50 via-transparent to-transparent pointer-events-none" />
 
                     {/* Category Badge Pill */}
                     <div className="absolute top-4 left-4 z-10 flex items-center gap-2 flex-wrap">
