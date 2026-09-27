@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Mail, Send, CheckCircle2, AlertCircle, Clock, Sparkles, ExternalLink } from 'lucide-react';
+import { Mail, Send, CheckCircle2, AlertCircle, Clock, Sparkles, ExternalLink, ChevronDown } from 'lucide-react';
 import { ContactPayload } from '@/types';
 import { submitContactForm } from '@/lib/api';
 
@@ -12,7 +12,7 @@ export default function ContactSection() {
     email: '',
     company: '',
     project_scope: 'Full-Stack Development',
-    budget_range: '₹50k - ₹100k',
+    budget_range: '$5k - $10k',
     message: '',
   });
 
@@ -30,10 +30,10 @@ export default function ContactSection() {
   ];
 
   const budgetOptions = [
-    '₹50k - ₹100k',
-    '₹100k - ₹250k',
-    '₹250k - ₹500k',
-    '₹500k+',
+    '$5k - $10k',
+    '$10k - $25k',
+    '$25k - $50k',
+    '$50k+',
   ];
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -79,7 +79,7 @@ export default function ContactSection() {
       email: '',
       company: '',
       project_scope: 'Full-Stack Development',
-      budget_range: '₹50k - ₹100k',
+      budget_range: '$5k - $10k',
       message: '',
     });
 
@@ -254,32 +254,38 @@ export default function ContactSection() {
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div className="space-y-1.5">
                       <label className="text-xs font-mono text-slate-300">Project Scope</label>
-                      <select
-                        value={formData.project_scope}
-                        onChange={(e) => setFormData({ ...formData, project_scope: e.target.value })}
-                        className="w-full px-4 py-3 rounded-xl bg-slate-900/80 border border-white/10 text-white text-[16px] sm:text-sm focus:outline-none focus:border-cyan-500 transition-colors"
-                      >
-                        {scopeOptions.map((opt) => (
-                          <option key={opt} value={opt} className="bg-slate-950 text-white">
-                            {opt}
-                          </option>
-                        ))}
-                      </select>
+                      <div className="relative">
+                        <select
+                          value={formData.project_scope}
+                          onChange={(e) => setFormData({ ...formData, project_scope: e.target.value })}
+                          className="w-full pl-4 pr-10 py-3 rounded-xl bg-slate-900/80 border border-white/10 text-white text-[16px] sm:text-sm focus:outline-none focus:border-cyan-500 transition-colors appearance-none cursor-pointer"
+                        >
+                          {scopeOptions.map((opt) => (
+                            <option key={opt} value={opt} className="bg-slate-950 text-white">
+                              {opt}
+                            </option>
+                          ))}
+                        </select>
+                        <ChevronDown className="w-4 h-4 text-slate-400 absolute right-3.5 top-1/2 -translate-y-1/2 pointer-events-none" />
+                      </div>
                     </div>
 
                     <div className="space-y-1.5">
                       <label className="text-xs font-mono text-slate-300">Estimated Budget</label>
-                      <select
-                        value={formData.budget_range}
-                        onChange={(e) => setFormData({ ...formData, budget_range: e.target.value })}
-                        className="w-full px-4 py-3 rounded-xl bg-slate-900/80 border border-white/10 text-white text-[16px] sm:text-sm focus:outline-none focus:border-cyan-500 transition-colors"
-                      >
-                        {budgetOptions.map((opt) => (
-                          <option key={opt} value={opt} className="bg-slate-950 text-white">
-                            {opt}
-                          </option>
-                        ))}
-                      </select>
+                      <div className="relative">
+                        <select
+                          value={formData.budget_range}
+                          onChange={(e) => setFormData({ ...formData, budget_range: e.target.value })}
+                          className="w-full pl-4 pr-10 py-3 rounded-xl bg-slate-900/80 border border-white/10 text-white text-[16px] sm:text-sm focus:outline-none focus:border-cyan-500 transition-colors appearance-none cursor-pointer"
+                        >
+                          {budgetOptions.map((opt) => (
+                            <option key={opt} value={opt} className="bg-slate-950 text-white">
+                              {opt}
+                            </option>
+                          ))}
+                        </select>
+                        <ChevronDown className="w-4 h-4 text-slate-400 absolute right-3.5 top-1/2 -translate-y-1/2 pointer-events-none" />
+                      </div>
                     </div>
                   </div>
 
