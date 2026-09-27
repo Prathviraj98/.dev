@@ -4,13 +4,16 @@ const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
 const GITHUB_USERNAME = 'Prathviraj98';
 
 export function getRelevantProjectImage(name: string, description: string = '', category: string = ''): string {
+  if (category === 'IoT & Hardware') return '/images/iot_hardware_banner.png';
   if (category === 'Full-Stack') return '/images/fullstack_banner.png';
   if (category === 'AI / Machine Learning') return '/images/ai_ml_banner.png';
   if (category === 'Mobile & PWA') return '/images/mobile_pwa_banner.png';
   if (category === 'Cryptography') return '/images/cryptography_banner.png';
-  if (category === 'IoT & Hardware') return '/images/fullstack_banner.png';
 
   const str = `${name} ${description}`.toLowerCase();
+  if (str.includes('iot') || str.includes('hardware') || str.includes('esp32') || str.includes('sensor') || str.includes('arch')) {
+    return '/images/iot_hardware_banner.png';
+  }
   if (str.includes('flutter') || str.includes('mobile') || str.includes('pwa') || str.includes('anvesana')) {
     return '/images/mobile_pwa_banner.png';
   }
@@ -164,7 +167,7 @@ Modular shell automation pipeline for rapid desktop provisioning.
     github_url: 'https://github.com/Prathviraj98/arch_post_install',
     live_url: 'https://github.com/Prathviraj98/arch_post_install',
     featured: true,
-    image_url: '/images/fullstack_banner.png',
+    image_url: '/images/iot_hardware_banner.png',
   },
   {
     id: 'auditforge',
@@ -226,7 +229,7 @@ A low-power point-of-care medical diagnostic kit executing neural inference dire
     github_url: 'https://github.com/Prathviraj98',
     live_url: 'https://github.com/Prathviraj98',
     featured: true,
-    image_url: '/images/ai_ml_banner.png',
+    image_url: '/images/iot_hardware_banner.png',
   },
 ];
 
